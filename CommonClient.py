@@ -19,7 +19,7 @@ import Utils
 if __name__ == "__main__":
     Utils.init_logging("TextClient", exception_logger="Client")
 
-from MultiServer import CommandProcessor
+from MultiServer import CommandProcessor, mark_raw
 from NetUtils import Endpoint, decode, NetworkItem, encode, JSONtoTextParser, \
     ClientStatus, Permission, NetworkSlot, RawJSONtoTextParser
 from Utils import Version, stream_input, async_start
@@ -70,13 +70,18 @@ class ClientCommandProcessor(CommandProcessor):
         async_start(self.ctx.disconnect(), name="disconnecting")
         return True
 
-    def _cmd_received(self) -> bool:
-        """List all received items"""
+    @mark_raw
+    def _cmd_received(self, filter_text = "") -> bool:
+        """List all received items
+        Can be given text, which will be used as filter."""
         self.output(f'{len(self.ctx.items_received)} received items:')
         for index, item in enumerate(self.ctx.items_received, 1):
-            self.output(f"{self.ctx.item_names[item.item]} from {self.ctx.player_names[item.player]}")
+            item_name = self.ctx.item_names[item.item]
+            if not filter_text or filter_text.lower() in item_name.lower():
+                self.output(f"{item_name} from {self.ctx.player_names[item.player]}")
         return True
 
+    @mark_raw
     def _cmd_missing(self, filter_text = "") -> bool:
         """List all missing location checks, from your local game state.
         Can be given text, which will be used as filter."""
@@ -86,7 +91,7 @@ class ClientCommandProcessor(CommandProcessor):
         count = 0
         checked_count = 0
         for location, location_id in AutoWorldRegister.world_types[self.ctx.game].location_name_to_id.items():
-            if filter_text and filter_text not in location:
+            if filter_text and filter_text.lower() not in location.lower():
                 continue
             if location_id < 0:
                 continue
@@ -106,23 +111,29 @@ class ClientCommandProcessor(CommandProcessor):
             self.output("No missing location checks found.")
         return True
 
-    def _cmd_items(self):
-        """List all item names for the currently running game."""
+    @mark_raw
+    def _cmd_items(self, filter_text = ""):
+        """List all item names for the currently running game.
+        Can be given text, which will be used as filter."""
         if not self.ctx.game:
             self.output("No game set, cannot determine existing items.")
             return False
         self.output(f"Item Names for {self.ctx.game}")
         for item_name in AutoWorldRegister.world_types[self.ctx.game].item_name_to_id:
-            self.output(item_name)
+            if not filter_text or filter_text.lower() in item_name.lower():
+                self.output(item_name)
 
-    def _cmd_locations(self):
-        """List all location names for the currently running game."""
+    @mark_raw
+    def _cmd_locations(self, filter_text = ""):
+        """List all location names for the currently running game.
+        Can be given text, which will be used as filter."""
         if not self.ctx.game:
             self.output("No game set, cannot determine existing locations.")
             return False
         self.output(f"Location Names for {self.ctx.game}")
         for location_name in AutoWorldRegister.world_types[self.ctx.game].location_name_to_id:
-            self.output(location_name)
+            if not filter_text or filter_text.lower() in location_name.lower():
+                self.output(location_name)
 
     def _cmd_ready(self):
         """Send ready status to server."""
