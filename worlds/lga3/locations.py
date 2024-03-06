@@ -67,7 +67,16 @@ location_table = [
     LocInfo('L2 KillAll: Bomb Ammo',   RID.LEVEL_2,        [], 'Kill  all enemies above the boss room in Level 2'), #4x4D
     LocInfo('L2 Boss Reward',          RID.LEVEL_2_B,      ['bombs'], 'Kill the L2 Boss'), #4x5D
     LocInfo('L2 Dungeon Reward',       RID.LEVEL_2_B,      ['bombs'], 'Beat L2'), #4x6D
-    LocInfo('L3: Roc\'s Feather',      RID.LEVEL_3,        [], 'Collect loose item in Level 3'), #4x00
+    LocInfo('L3: Roc\'s Feather',      RID.LEVEL_3_F,      [], 'Collect loose item in Level 3 1st room'), #4x00
+    LocInfo('L3 KillAll: Map',         RID.LEVEL_3,        ['kill','map'], 'Kill all enemies in Level 3 2nd room'), #4x01
+    LocInfo('L3: LKey',                RID.LEVEL_3,        ['key'], 'Grab loose item in Level 3 3rd room'), #4x02
+    LocInfo('L3 KillAll: Compass',     RID.LEVEL_3_R,      ['kill','compass'], 'Kill all enemies in Level 3 4th room'), #4x03
+    LocInfo('L3 KillAll: Bracelet',    RID.LEVEL_3_R,      ['kill'], 'Kill all enemies in Level 3 left path'), #4x12
+    LocInfo('L3 KillAll: Hookshot',    RID.LEVEL_3_R,      ['kill'], 'Kill all enemies in Level 3 right path'), #4x14
+    LocInfo('L3: Boss Key',            RID.LEVEL_3_R2,     ['bkey'], 'Grab loose item in Level 3 using hookshot'), #4x13
+    LocInfo('L3 KillAll: Charge Ring', RID.LEVEL_3_R2,     ['kill'], 'Kill all enemies in Level 3 6th room'), #4x05
+    LocInfo('L3 Boss Reward',          RID.LEVEL_3_B,      ['wpn'], 'Kill the L3 Boss'), #4x06
+    LocInfo('L3 Dungeon Reward',       RID.LEVEL_3_B,      ['wpn'], 'Beat L3'), #4x07
     LocInfo('L4: Roc\'s Cape',         RID.LEVEL_4,        [], 'Collect loose item in Level 4'), #4x30
     LocInfo('L5 KillAll: Bottle',      RID.LEVEL_5,        ['kill'], 'Kill all enemies in a room in Level 5'), #5x6D
     LocInfo('L6 KillAll: Bottle',      RID.LEVEL_6,        ['kill'], 'Kill all enemies in a room in Level 6'), #6x47

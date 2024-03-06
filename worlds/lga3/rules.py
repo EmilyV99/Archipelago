@@ -2,7 +2,7 @@ from typing import List, Optional
 from BaseClasses import MultiWorld, Item, ItemClassification
 from ..generic.Rules import set_rule, add_rule, CollectionRule
 from .common import *
-from .items import create_event_item, create_item
+from .items import create_event_item, create_item, include_item_name
 from .locations import LGA3_Location, LocInfo, location_table
 from .options import LGA3_Options
 from .regions import region_map
@@ -21,6 +21,7 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     heavy_1_rule = lambda state: state.has('Progressive Bracelet',player)
     heavy_2_rule = lambda state: state.has('Progressive Bracelet',player,2)
     flipper_rule = lambda state: state.has('Flippers',player)
+    hook_rule = lambda state: state.has('Progressive Hookshot',player)
     
     key_rule = lambda state,lvl,count=1: state.has(f'LKey {lvl}', player, count)
     bkey_rule = lambda state,lvl: state.has(f'Boss Key {lvl}', player)
@@ -53,9 +54,17 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     region_map[RID.LEVEL_2].connect(connecting_region=region_map[RID.LEVEL_2_B],
         rule = lambda state: key_rule(state,2) and bkey_rule(state,2))
     
-    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_3])
+    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_3_F])
+    region_map[RID.LEVEL_3_F].connect(connecting_region=region_map[RID.LEVEL_3],
+        rule = jump_1_rule)
+    region_map[RID.LEVEL_3].connect(connecting_region=region_map[RID.LEVEL_3_R],
+        rule = lambda state: key_rule(state,3))
+    region_map[RID.LEVEL_3_R].connect(connecting_region=region_map[RID.LEVEL_3_R2],
+        rule = hook_rule)
+    region_map[RID.LEVEL_3_R2].connect(connecting_region=region_map[RID.LEVEL_3_B],
+        rule = lambda state: bkey_rule(state,3))
     region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_4],
-        rule = lambda state: True) # Needs Hookshot
+        rule = hook_rule)
     
     region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_5],
         rule = flipper_rule)
@@ -65,8 +74,9 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
         rule = lambda state: True) # Needs Lens
     region_map[RID.ICE].connect(connecting_region=region_map[RID.LEVEL_8],
         rule = lambda state: True) # Needs Lens
+    tri_count = include_item_name('Triforce Fragment', options)
     region_map[RID.DESERT].connect(connecting_region=region_map[RID.LEVEL_9],
-        rule = lambda state: state.has('Triforce Fragment', player, 2))
+        rule = lambda state: state.has('Triforce Fragment', player, tri_count))
     
     _set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
     
