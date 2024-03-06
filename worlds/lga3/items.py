@@ -17,15 +17,72 @@ item_table = [
     ItemInfo('Progressive Tunic', 'An armor upgrade', ItemClassification.useful),
     ItemInfo('Progressive Bottle', 'An Empty Bottle', ItemClassification.progression),
     ItemInfo('Progressive Jump', 'A jump upgrade', ItemClassification.progression),
+    ItemInfo('Progressive Bomb Bag', 'A bomb capacity upgrade', ItemClassification.progression),
+    ItemInfo('Progressive Quiver', 'An arrow capacity upgrade', ItemClassification.progression),
+    ItemInfo('Progressive Magic Ring', 'A magic regen upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Life Ring', 'A life regen upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Shield', 'A shield upgrade', ItemClassification.progression),
+    ItemInfo('Progressive Boomerang', 'A boomerang upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Lantern', 'A lantern upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Wallet', 'Increases max money', ItemClassification.progression),
+    ItemInfo('Bow', 'The Bow, to shoot arrows with', ItemClassification.progression),
+    ItemInfo('Magic Book', 'The Magic Book, powers up the Wand', ItemClassification.progression),
     ItemInfo('Hammer', 'The Hammer', ItemClassification.progression),
+    ItemInfo('Magic Rock', 'Hints towards nearby secrets', ItemClassification.progression),
+    ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
+    ItemInfo('Triforce Fragment', 'MacGuffin', ItemClassification.progression),
+    ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
+    ItemInfo('Compass 1', 'Dungeon Compass for Level 1', ItemClassification.filler),
+    #ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
+    #ItemInfo('Compass 3', 'Dungeon Compass for Level 3', ItemClassification.filler),
+    #ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
+    #ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
+    #ItemInfo('Compass 6', 'Dungeon Compass for Level 6', ItemClassification.filler),
+    #ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
+    #ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
+    ItemInfo('Map 1', 'Dungeon Map for Level 1', ItemClassification.filler),
+    #ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
+    #ItemInfo('Map 3', 'Dungeon Map for Level 3', ItemClassification.filler),
+    #ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
+    #ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
+    #ItemInfo('Map 6', 'Dungeon Map for Level 6', ItemClassification.filler),
+    #ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
+    #ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
+    ItemInfo('LKey 1', 'Level Key for Level 1', ItemClassification.progression),
+    #ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
+    #ItemInfo('LKey 3', 'Level Key for Level 3', ItemClassification.progression),
+    #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
+    #ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
+    #ItemInfo('LKey 6', 'Level Key for Level 6', ItemClassification.progression),
+    #ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
+    #ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
+    ItemInfo('Boss Key 1', 'Boss Key for Level 1', ItemClassification.progression),
+    #ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
+    #ItemInfo('Boss Key 3', 'Boss Key for Level 3', ItemClassification.progression),
+    #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
+    #ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
+    #ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
+    #ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
+    #ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
     ]
 item_name_to_id = {name: num for num,(name,_desc,_) in enumerate(item_table,base_number_id)}
+key_counts = [0,1,0,0,0,0,0,0,0,0]
 
 def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
     match itm.name:
         case 'Nothing':
             return 0
-        case 'Progressive Sword':
+        
+        # Ammo / Collectables
+        case 'Triforce Fragment':
+            return 1 #!TODO more
+        case 'Heart Container':
+            return 1 #!TODO more
+        case 'Bomb Ammo x4':
+            return 1
+        
+        # 'Progressive' items
+        case 'Progressive Sword': #SwordSanity settings
             if options.sword_sanity == 2:
                 return 4
             if options.sword_sanity == 1:
@@ -37,6 +94,33 @@ def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
             return 4
         case 'Progressive Jump':
             return 2
+        case 'Progressive Wallet':
+            return 1 #!TODO more
+        case 'Progressive Lantern':
+            return 1 #!TODO more
+        case 'Progressive Boomerang':
+            return 1 #!TODO more
+        case 'Progressive Bomb Bag':
+            return 1 #!TODO more
+        case 'Progressive Quiver':
+            return 1 #!TODO more
+        case 'Progressive Life Ring':
+            return 1 #!TODO more
+        case 'Progressive Magic Ring':
+            return 2 #!TODO more
+        case 'Progressive Shield':
+            return 2 #!TODO more
+        
+        # Other stuff
+        case name if 'Compass' in name:
+            return 1 if options.dungeon_item_sanity & 0b10 else 0
+        case name if 'Map' in name:
+            return 1 if options.dungeon_item_sanity & 0b01 else 0
+        case name if 'LKey' in name:
+            assert name[-1].isnumeric(), 'LKey item names must end in a level number'
+            return key_counts[int(name[-1])] if options.key_sanity > 1 else 0
+        case name if 'Boss Key' in name:
+            return 1 if options.key_sanity > 0 else 0
     return 1
 def create_items(multiworld: MultiWorld, player: int, options: LGA3_Options) -> None:
     exclude = [item for item in multiworld.precollected_items[player]]
@@ -53,7 +137,7 @@ def create_items(multiworld: MultiWorld, player: int, options: LGA3_Options) -> 
         multiworld.itempool += [itm.copy() for _ in range(count)]
     multiworld.itempool += [nothing_item.copy() for _ in range(junk)]
 def create_item(name: str, player: int) -> LGA3_Item:
-    itemid = item_name_to_id[name]
+    itemid = item_name_to_id[name]-base_number_id
     _,desc,flag = item_table[itemid]
     return LGA3_Item(name, flag, itemid, player)
 

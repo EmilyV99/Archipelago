@@ -32,11 +32,11 @@ class LGA3_World(World):
     web = LGA3_Web()
     options_dataclass = LGA3_Options
     options: LGA3_Options
-    location_descriptions = {name: desc for name,desc,_ in location_table}
-    item_descriptions = {name: desc for name,desc,_ in item_table}
+    location_descriptions = {loc.name: loc.desc for loc in location_table}
+    item_descriptions = {itm.name: itm.desc for itm in item_table}
     location_name_to_id = location_name_to_id
     item_name_to_id = item_name_to_id
-
+    #item_name_groups = item_name_groups
     def create_regions(self) -> None:
         create_regions(self.multiworld, self.player, self.options)
 
@@ -51,5 +51,5 @@ class LGA3_World(World):
         
     def generate_output(self, output_directory: str) -> None:
         from Utils import visualize_regions
-        visualize_regions(region_map[RegionID.MENU], "lga3_world.puml")
+        visualize_regions(region_map[RID.MENU], "lga3_world.puml")
 
