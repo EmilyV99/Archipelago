@@ -3,9 +3,10 @@ import typing
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from .options import LGA3_Options, options_presets
-from .locations import location_table, location_name_to_id
-from .items import item_table, LGA3_Item, item_name_to_id
-from .regions import create_regions
+from .locations import *
+from .items import *
+from .regions import *
+from .rules import *
 from .common import *
 
 class LGA3_Web(WebWorld):
@@ -26,7 +27,7 @@ class LGA3_World(World):
     Link's Grand Adventure 3 is a Zelda-Like game in the ZQuest Classic game engine
     """
     
-    game = 'Link\'s Grand Adventure 3: Remastered'
+    game = gamename
     topology_present = False
     web = LGA3_Web()
     options_dataclass = LGA3_Options
@@ -42,6 +43,13 @@ class LGA3_World(World):
     def create_items(self) -> None:
         create_items(self.multiworld, self.player, self.options)
     
+    def create_item(self, name: str) -> LGA3_Item:
+        return create_item(name, self.player)
+    
     def set_rules(self) -> None:
         set_rules(self.multiworld, self.player, self.options)
+        
+    def generate_output(self, output_directory: str) -> None:
+        from Utils import visualize_regions
+        visualize_regions(region_map[RegionID.MENU], "lga3_world.puml")
 
