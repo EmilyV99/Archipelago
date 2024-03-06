@@ -14,7 +14,7 @@ class ItemInfo(NamedTuple):
 item_table = [
     ItemInfo('Nothing', 'A junk item', ItemClassification.filler),
     ItemInfo('Progressive Sword', 'A sword upgrade', ItemClassification.progression),
-    ItemInfo('Progressive Tunic', 'An armor upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Tunic', 'An armor upgrade', ItemClassification.progression),
     ItemInfo('Progressive Bottle', 'An Empty Bottle', ItemClassification.progression),
     ItemInfo('Progressive Jump', 'A jump upgrade', ItemClassification.progression),
     ItemInfo('Progressive Bomb Bag', 'A bomb capacity upgrade', ItemClassification.progression),
@@ -25,15 +25,21 @@ item_table = [
     ItemInfo('Progressive Boomerang', 'A boomerang upgrade', ItemClassification.useful),
     ItemInfo('Progressive Lantern', 'A lantern upgrade', ItemClassification.useful),
     ItemInfo('Progressive Wallet', 'Increases max money', ItemClassification.progression),
+    ItemInfo('Progressive Coupon', 'Decreases shop prices', ItemClassification.progression),
     ItemInfo('Bow', 'The Bow, to shoot arrows with', ItemClassification.progression),
     ItemInfo('Magic Book', 'The Magic Book, powers up the Wand', ItemClassification.progression),
     ItemInfo('Hammer', 'The Hammer', ItemClassification.progression),
     ItemInfo('Magic Rock', 'Hints towards nearby secrets', ItemClassification.progression),
+    ItemInfo('Divine Fire', 'Blasts the whole screen in Divine Fire', ItemClassification.progression),
+    ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
+    ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
+    ItemInfo('Magic Container', 'Extra max magic', ItemClassification.useful),
     ItemInfo('Triforce Fragment', 'MacGuffin', ItemClassification.progression),
     ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
+    ItemInfo('Bomb Ammo x30', '30 Bombs', ItemClassification.filler),
     ItemInfo('Compass 1', 'Dungeon Compass for Level 1', ItemClassification.filler),
-    #ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
+    ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
     #ItemInfo('Compass 3', 'Dungeon Compass for Level 3', ItemClassification.filler),
     #ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
     #ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
@@ -41,7 +47,7 @@ item_table = [
     #ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
     #ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
     ItemInfo('Map 1', 'Dungeon Map for Level 1', ItemClassification.filler),
-    #ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
+    ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
     #ItemInfo('Map 3', 'Dungeon Map for Level 3', ItemClassification.filler),
     #ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
     #ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
@@ -49,7 +55,7 @@ item_table = [
     #ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
     #ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
     ItemInfo('LKey 1', 'Level Key for Level 1', ItemClassification.progression),
-    #ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
+    ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
     #ItemInfo('LKey 3', 'Level Key for Level 3', ItemClassification.progression),
     #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
     #ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
@@ -57,7 +63,7 @@ item_table = [
     #ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
     #ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
     ItemInfo('Boss Key 1', 'Boss Key for Level 1', ItemClassification.progression),
-    #ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
+    ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
     #ItemInfo('Boss Key 3', 'Boss Key for Level 3', ItemClassification.progression),
     #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
     #ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
@@ -66,7 +72,7 @@ item_table = [
     #ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
     ]
 item_name_to_id = {name: num for num,(name,_desc,_) in enumerate(item_table,base_number_id)}
-key_counts = [0,1,0,0,0,0,0,0,0,0]
+key_counts = [0,1,1,0,0,0,0,0,0,0] #levels 0-9
 
 def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
     match itm.name:
@@ -75,10 +81,14 @@ def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 1 #!TODO more
+            return 2 #!TODO more
         case 'Heart Container':
-            return 1 #!TODO more
+            return 5 #!TODO more
+        case 'Magic Container':
+            return 4 #!TODO more
         case 'Bomb Ammo x4':
+            return 1
+        case 'Bomb Ammo x30':
             return 1
         
         # 'Progressive' items
@@ -97,19 +107,21 @@ def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
         case 'Progressive Wallet':
             return 1 #!TODO more
         case 'Progressive Lantern':
-            return 1 #!TODO more
+            return 2
         case 'Progressive Boomerang':
-            return 1 #!TODO more
+            return 2 #!TODO more
         case 'Progressive Bomb Bag':
             return 1 #!TODO more
         case 'Progressive Quiver':
             return 1 #!TODO more
         case 'Progressive Life Ring':
-            return 1 #!TODO more
+            return 2 #!TODO more
         case 'Progressive Magic Ring':
             return 2 #!TODO more
         case 'Progressive Shield':
             return 2 #!TODO more
+        case 'Progressive Coupon':
+            return 1 #!TODO more
         
         # Other stuff
         case name if 'Compass' in name:

@@ -7,12 +7,17 @@ from .options import LGA3_Options
 region_map: typing.Dict[RID, Region] = {}
 def create_regions(multiworld: MultiWorld, player: int, options: LGA3_Options):
     region_map[RID.MENU] = Region('Menu', player, multiworld);
-    region_map[RID.OVERWORLD] = Region('Overworld', player, multiworld)
+    region_map[RID.GRASSLAND] = Region('Grassland', player, multiworld)
     region_map[RID.KAKARIKO] = Region('Kakariko', player, multiworld)
+    region_map[RID.MOUNTAIN] = Region('Mountain', player, multiworld)
+    region_map[RID.DESERT] = Region('Desert', player, multiworld)
+    region_map[RID.GRAVEYARD] = Region('Graveyard', player, multiworld)
+    region_map[RID.ICE] = Region('Ice', player, multiworld)
     region_map[RID.LEVEL_1] = Region('Level 1', player, multiworld)
     region_map[RID.LEVEL_1_R] = Region('Level 1 Right', player, multiworld)
     region_map[RID.LEVEL_1_B] = Region('Level 1 Boss', player, multiworld)
     region_map[RID.LEVEL_2] = Region('Level 2', player, multiworld)
+    region_map[RID.LEVEL_2_B] = Region('Level 2 Boss', player, multiworld)
     region_map[RID.LEVEL_3] = Region('Level 3', player, multiworld)
     region_map[RID.LEVEL_4] = Region('Level 4', player, multiworld)
     region_map[RID.LEVEL_5] = Region('Level 5', player, multiworld)

@@ -6,12 +6,17 @@ game_disp_name = 'Link\'s Grand Adventure 3: Remastered'
 
 class RID(Enum):
     MENU = -1
-    OVERWORLD = 0
+    GRASSLAND = 0
     KAKARIKO = 1
+    MOUNTAIN = 2
+    DESERT = 3
+    GRAVEYARD = 4
+    ICE = 5
     LEVEL_1 = 10
     LEVEL_1_R = 11
     LEVEL_1_B = 12
     LEVEL_2 = 20
+    LEVEL_2_B = 21
     LEVEL_3 = 30
     LEVEL_4 = 40
     LEVEL_5 = 50
