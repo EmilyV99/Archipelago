@@ -22,7 +22,8 @@ class RID(Enum):
     LEVEL_3_R = 32
     LEVEL_3_R2 = 33
     LEVEL_3_B = 34
-    LEVEL_4 = 40
+    LEVEL_4_F = 40
+    LEVEL_4 = 41
     LEVEL_5 = 50
     LEVEL_6 = 60
     LEVEL_7 = 70

@@ -37,14 +37,14 @@ item_table = [
     ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
     ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
-    ItemInfo('Magic Container', 'Extra max magic', ItemClassification.useful),
+    ItemInfo('Magic Container', 'Extra max magic', ItemClassification.progression),
     ItemInfo('Triforce Fragment', 'MacGuffin', ItemClassification.progression),
     ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
     ItemInfo('Bomb Ammo x30', '30 Bombs', ItemClassification.filler),
     ItemInfo('Compass 1', 'Dungeon Compass for Level 1', ItemClassification.filler),
     ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
     ItemInfo('Compass 3', 'Dungeon Compass for Level 3', ItemClassification.filler),
-    #ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
+    ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
     #ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
     #ItemInfo('Compass 6', 'Dungeon Compass for Level 6', ItemClassification.filler),
     #ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
@@ -52,7 +52,7 @@ item_table = [
     ItemInfo('Map 1', 'Dungeon Map for Level 1', ItemClassification.filler),
     ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
     ItemInfo('Map 3', 'Dungeon Map for Level 3', ItemClassification.filler),
-    #ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
+    ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
     #ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
     #ItemInfo('Map 6', 'Dungeon Map for Level 6', ItemClassification.filler),
     #ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
@@ -60,7 +60,7 @@ item_table = [
     ItemInfo('LKey 1', 'Level Key for Level 1', ItemClassification.progression),
     ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
     ItemInfo('LKey 3', 'Level Key for Level 3', ItemClassification.progression),
-    #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
+    #Non-existent #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
     #ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
     #ItemInfo('LKey 6', 'Level Key for Level 6', ItemClassification.progression),
     #ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
@@ -68,7 +68,7 @@ item_table = [
     ItemInfo('Boss Key 1', 'Boss Key for Level 1', ItemClassification.progression),
     ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
     ItemInfo('Boss Key 3', 'Boss Key for Level 3', ItemClassification.progression),
-    #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
+    #Non-existent #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
     #ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
     #ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
     #ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
@@ -84,9 +84,9 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 3 #!TODO more
+            return 4 #!TODO more
         case 'Heart Container':
-            return 6 #!TODO more
+            return 7 #!TODO more
         case 'Magic Container':
             return 4 #!TODO more
         case 'Bomb Ammo x4':
@@ -112,9 +112,9 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Lantern':
             return 2
         case 'Progressive Boomerang':
-            return 2 #!TODO more
+            return 3
         case 'Progressive Bomb Bag':
-            return 1 #!TODO more
+            return 2 #!TODO more
         case 'Progressive Quiver':
             return 1 #!TODO more
         case 'Progressive Shield':
@@ -124,7 +124,7 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Bracelet':
             return 1 #!TODO more
         case 'Progressive Hookshot':
-            return 1 #!TODO more
+            return 2
         
         case 'Progressive Life Ring':
             return 2 #!TODO more

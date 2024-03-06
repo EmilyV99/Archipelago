@@ -10,14 +10,20 @@ from .regions import region_map
 def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> None:
     bomb_rule = lambda state: state.has('Progressive Bomb Bag', player)
     jump_1_rule = lambda state: state.has('Progressive Jump', player)
+    jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)
     arrow_rule = lambda state: state.has('Progressive Quiver', player) and state.has('Bow', player)
     arrow_2_rule = lambda state: arrow_rule(state) and state.has('Progressive Arrows', player)
     rock_rule = lambda state: state.has('Magic Rock', player)
-    sword_rule = lambda state,count=1: state.has('Progressive Sword', player, count)
-    tunic_rule = lambda state,count=1: state.has('Progressive Tunic', player, count)
-    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_rule(state)
-    basic_fighter_rule = lambda state: sword_rule(state) or arrow_rule(state)
-    fighter_rule = lambda state: sword_rule(state,2) or (sword_rule(state) and arrow_rule(state))
+    tunic_1_rule = lambda state: state.has('Progressive Tunic',player,1)
+    tunic_2_rule = lambda state: state.has('Progressive Tunic',player,2)
+    tunic_3_rule = lambda state: state.has('Progressive Tunic',player,3)
+    sword_1_rule = lambda state: state.has('Progressive Sword',player,1)
+    sword_2_rule = lambda state: state.has('Progressive Sword',player,2)
+    sword_3_rule = lambda state: state.has('Progressive Sword',player,3)
+    sword_4_rule = lambda state: state.has('Progressive Sword',player,4)
+    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state)
+    basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state)
+    fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state))
     heavy_1_rule = lambda state: state.has('Progressive Bracelet',player)
     heavy_2_rule = lambda state: state.has('Progressive Bracelet',player,2)
     flipper_rule = lambda state: state.has('Flippers',player)
@@ -29,6 +35,9 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     pay_1_1 = lambda state: state.has('Progressive Wallet', player) or state.has('Progressive Coupon', player)
     pay_1_2 = lambda state: state.has('Progressive Wallet', player) or state.has('Progressive Coupon', player, 2)
     pay_1_3 = lambda state: state.has('Progressive Wallet', player) or state.has('Progressive Coupon', player, 3)
+    
+    divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2)
+    tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
     
     region_map[RID.MENU].connect(connecting_region=region_map[RID.GRASSLAND])
     
@@ -63,8 +72,11 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
         rule = hook_rule)
     region_map[RID.LEVEL_3_R2].connect(connecting_region=region_map[RID.LEVEL_3_B],
         rule = lambda state: bkey_rule(state,3))
-    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_4],
+    
+    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_4_F],
         rule = hook_rule)
+    region_map[RID.LEVEL_4_F].connect(connecting_region=region_map[RID.LEVEL_4],
+        rule = jump_2_rule)
     
     region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_5],
         rule = flipper_rule)
@@ -80,10 +92,6 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     
     _set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
     
-    _set_rule('Sword Under Tree', lambda state: sword_rule(state,3))
-    _set_rule('L4: Roc\'s Cape', jump_1_rule)
-    _set_rule('24-Headed Dragon', lambda state: (sword_rule(state,3) and tunic_rule(state)) or (sword_rule(state,2) and (state.has('Divine Protection',player) or tunic_rule(state,2))))
-    
     locs_list: List[(LGA3_Location,LocInfo)] = []
     for locinfo in location_table:
         locs_list.append((multiworld.get_location(locinfo.name,player),locinfo))
@@ -95,11 +103,31 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
             add_rule(loc, weapon_rule)
         elif 'wpn' in locinfo.tags:
             add_rule(loc, weapon_rule)
-        else: #these are contained inside weapon_rule
-            if 'bomb' in locinfo.tags:
-                add_rule(loc, bomb_rule)
-            if 'arrow' in locinfo.tags:
-                add_rule(loc, arrow_rule)
+        
+        if 'bomb' in locinfo.tags:
+            add_rule(loc, bomb_rule)
+        
+        if 'arrow2' in locinfo.tags:
+            add_rule(loc, arrow_2_rule)
+        elif 'arrow' in locinfo.tags:
+            add_rule(loc, arrow_rule)
+        
+        if 'jump2' in locinfo.tags:
+            add_rule(loc, jump_2_rule)
+        elif 'jump' in locinfo.tags:
+            add_rule(loc, jump_1_rule)
+        
+        if 'sword4' in locinfo.tags:
+            add_rule(loc, sword_4_rule)
+        elif 'sword3' in locinfo.tags:
+            add_rule(loc, sword_3_rule)
+        elif 'sword2' in locinfo.tags:
+            add_rule(loc, sword_2_rule)
+        elif 'sword' in locinfo.tags:
+            add_rule(loc, sword_1_rule)
+        
+        if 'tough_fight' in locinfo.tags:
+            add_rule(loc, tough_fight_rule)
         
         if 'shop' in locinfo.tags:
             if 'pay_1_1' in locinfo.tags:
@@ -141,7 +169,7 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
             loc.place_locked_item(create_item('Progressive Sword', player))
         
     ganon_loc = multiworld.get_location('Ganon', player)
-    set_rule(ganon_loc, lambda state: sword_rule(state,2) and arrow_rule(state)) #!TODO arrow_2_rule
+    set_rule(ganon_loc, lambda state: sword_2_rule(state) and arrow_rule(state)) #!TODO arrow_2_rule
     ganon_loc.place_locked_item(create_event_item('Victory', player))
     multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
 

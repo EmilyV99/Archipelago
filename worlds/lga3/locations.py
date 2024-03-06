@@ -22,7 +22,7 @@ location_table = [
     LocInfo('Starting Magic Ring',     RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Starting Shield',         RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Sword Under Block',       RID.GRASSLAND,      ['heavy2'], 'Southwest from start, push a Very Heavy rock'), #1x53
-    LocInfo('Sword Under Tree',        RID.GRASSLAND,      [], 'On the starting screen, under a tree cuttable with the Magic Sword'), #1x37
+    LocInfo('Sword Under Tree',        RID.GRASSLAND,      ['sword3'], 'On the starting screen, under a tree cuttable with the Magic Sword'), #1x37
     LocInfo('Boomerang Under Rock',    RID.GRASSLAND,      ['bomb'], 'Northwest of start, make the screen symmetrical'), #1x35
     LocInfo('KillAll: HeartC 1',       RID.GRASSLAND,      ['kill'], 'By level 2, kill all the blue enemies'), #1x1B
     LocInfo('KillAll: MagicC 1',       RID.GRASSLAND,      ['kill'], 'By level 2, kill all the blue enemies'), #1x0C
@@ -41,7 +41,7 @@ location_table = [
     LocInfo('KillAll: MagicC 2',       RID.MOUNTAIN,       ['kill'], 'In the upper-left of the mountain, kill all Moblins'), #1x21
     LocInfo('KillAll: HeartC 2',       RID.MOUNTAIN,       ['kill'], 'In the mid-left of the mountain, kill all Moblins'), #1x40
     LocInfo('KillAll: MagicC 3',       RID.MOUNTAIN,       ['kill'], 'In the lower entrance of the mountain, kill all blue Moblins'), #1x42
-    LocInfo('24-Headed Dragon',        RID.MOUNTAIN,       ['kill'], 'At the top-right of the mountain'), #1x04
+    LocInfo('24-Headed Dragon',        RID.MOUNTAIN,       ['kill','tough_fight'], 'At the top-right of the mountain'), #1x04
     LocInfo('Cave Shop 1',             RID.MOUNTAIN,       ['shop','pay_1_3'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 2',             RID.MOUNTAIN,       ['shop'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 3',             RID.MOUNTAIN,       ['shop','pay_1_2'], 'In a lower-left mountain cave'), #2x50
@@ -77,7 +77,14 @@ location_table = [
     LocInfo('L3 KillAll: Charge Ring', RID.LEVEL_3_R2,     ['kill'], 'Kill all enemies in Level 3 6th room'), #4x05
     LocInfo('L3 Boss Reward',          RID.LEVEL_3_B,      ['wpn'], 'Kill the L3 Boss'), #4x06
     LocInfo('L3 Dungeon Reward',       RID.LEVEL_3_B,      ['wpn'], 'Beat L3'), #4x07
-    LocInfo('L4: Roc\'s Cape',         RID.LEVEL_4,        [], 'Collect loose item in Level 4'), #4x30
+    LocInfo('L4: Map',                 RID.LEVEL_4_F,      ['map'], 'Collect loose item in Level 4'), #4x20
+    LocInfo('L4: Roc\'s Cape',         RID.LEVEL_4_F,      ['jump'], 'Collect loose item in Level 4'), #4x30
+    LocInfo('L4: Bomb Bag',            RID.LEVEL_4,        [], 'Collect loose item in Level 4'), #4x21
+    LocInfo('L4: Boomerang',           RID.LEVEL_4,        [], 'Collect loose item on the ledge in Level 4'), #4x33
+    LocInfo('L4: Compass',             RID.LEVEL_4,        ['kill','compass'], 'Kill all enemies in the pit in Level 4'), #4x43
+    LocInfo('L4: Longshot',            RID.LEVEL_4,        ['kill'], 'Kill all enemies in the pre-boss room in Level 4'), #4x24
+    LocInfo('L4 Boss Reward',          RID.LEVEL_4,        ['sword'], 'Kill the L4 Boss'), #4x25
+    LocInfo('L4 Dungeon Reward',       RID.LEVEL_4,        ['sword'], 'Beat L4'), #4x26
     LocInfo('L5 KillAll: Bottle',      RID.LEVEL_5,        ['kill'], 'Kill all enemies in a room in Level 5'), #5x6D
     LocInfo('L6 KillAll: Bottle',      RID.LEVEL_6,        ['kill'], 'Kill all enemies in a room in Level 6'), #6x47
     LocInfo('L6 KillAll: Tunic',       RID.LEVEL_6,        ['kill'], 'Kill all enemies in a room in Level 6'), #6x58
