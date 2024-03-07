@@ -16,6 +16,7 @@ def set_rules(world: World) -> None:
     arrow_rule = lambda state: state.has('Progressive Quiver', player) and state.has('Bow', player)
     arrow_2_rule = lambda state: arrow_rule(state) and state.has('Progressive Arrows', player)
     candle_2_rule = lambda state: state.has('Progressive Lantern',player,2)
+    distant_fire_rule = lambda state: state.has('Divine Fire',player) or state.has('Progressive Boomerang',player,3) or state.has_all(['Wand','Magic Book'],player)
     wand_rule = lambda state: state.has('Wand',player)
     rock_rule = lambda state: state.has('Magic Rock', player)
     tunic_1_rule = lambda state: state.has('Progressive Tunic',player,1)
@@ -107,11 +108,25 @@ def set_rules(world: World) -> None:
         world.get_region(RID.LEVEL_5_U).connect(connecting_region = world.get_region(RID.LEVEL_5_B),
             rule = lambda state: bkey_rule(state,5))
         
-        world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_6))
+        world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_6_1F_F))
+        world.get_region(RID.LEVEL_6_1F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_1F_B),
+            rule = wand_rule)
+        world.get_region(RID.LEVEL_6_1F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_B),
+            rule = lambda state: bkey_rule(state,6) and weapon_rule(state))
+        world.get_region(RID.LEVEL_6_1F_B).connect(connecting_region = world.get_region(RID.LEVEL_6_1F_L))
+        world.get_region(RID.LEVEL_6_1F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_2F_F),
+            rule = lambda state: key_rule(state,6) and weapon_rule(state))
+        world.get_region(RID.LEVEL_6_2F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_2F_B),
+            rule = lambda state: key_rule(state,6,2) and melee_rule(state) and distant_fire_rule(state))
+        world.get_region(RID.LEVEL_6_2F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_1F_L),
+            rule = lambda state: key_rule(state,6,2) and melee_rule(state))
+        
         world.get_region(RID.GRAVEYARD).connect(connecting_region = world.get_region(RID.LEVEL_7),
             rule = lambda state: True) # Needs Lens
         world.get_region(RID.ICE).connect(connecting_region = world.get_region(RID.LEVEL_8),
             rule = lambda state: True) # Needs Lens
+        
+        
         tri_count = include_item_name('Triforce Fragment', options)
         world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_9),
             rule = lambda state: state.has('Triforce Fragment', player, tri_count) and bomb_rule(state))
@@ -124,14 +139,10 @@ def set_rules(world: World) -> None:
     
     for loc,locinfo in locs_list:
         need_wpn = False
-        if 'kill' in locinfo.tags:
-            if options.magic_rock_for_kill_all:
+        if options.magic_rock_for_kill_all:
+            if 'kill' in locinfo.tags:
                 add_rule(loc, rock_rule)
-            need_wpn = True
-        elif 'wpn' in locinfo.tags:
-            need_wpn = True
-        
-        if need_wpn:
+        if 'wpn' in locinfo.tags or 'wpn_restr' in locinfo.tags:
             add_rule(loc, make_wpn_rule(locinfo.tags))
         
         if 'melee' in locinfo.tags:
