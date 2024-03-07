@@ -1,21 +1,24 @@
-from typing import NamedTuple, Set
-from BaseClasses import Location
+from typing import NamedTuple, Set, Optional
+from BaseClasses import Location, Region
 from .common import *
 from .options import LGA3_Options
 
-class LGA3_Location(Location):
-    game = game_disp_name
-    
-    # override constructor to automatically mark event locations as such
-    def __init__(self, player: int, name="", code=None, parent=None) -> None:
-        super(LGA3_Location, self).__init__(player, name, code, parent)
-        self.event = code is None
 
 class LocInfo(NamedTuple):
     name: str
     region_id: RID
     tags: Set[str]
     desc: str
+
+class LGA3_Location(Location):
+    game = game_disp_name
+    info: Optional[LocInfo]
+    # override constructor to automatically mark event locations as such, and handle LocInfo
+    def __init__(self, player: int, name: str, code: Optional[int], parent: Region, info: Optional[LocInfo] = None) -> None:
+        super(LGA3_Location, self).__init__(player, name, code, parent)
+        self.event = code is None
+        self.info = info
+
 location_table = [
     LocInfo('Starting Sword',                  RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Starting Bomb Bag',               RID.MENU,           [], 'In your starting inventory'),
