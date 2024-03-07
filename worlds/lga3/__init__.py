@@ -51,5 +51,5 @@ class LGA3_World(World):
         
     def generate_output(self, output_directory: str) -> None:
         from Utils import visualize_regions
-        visualize_regions(region_map[RID.MENU], f"{output_directory}/lga3_world.puml")
+        visualize_regions(region_map[RID.MENU], f"output/lga3_world.puml")
 

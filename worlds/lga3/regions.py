@@ -26,6 +26,8 @@ def create_regions(multiworld: MultiWorld, player: int, options: LGA3_Options):
     region_map[RID.LEVEL_4_F] = Region('Level 4 Front', player, multiworld)
     region_map[RID.LEVEL_4] = Region('Level 4', player, multiworld)
     region_map[RID.LEVEL_5] = Region('Level 5', player, multiworld)
+    region_map[RID.LEVEL_5_U] = Region('Level 5 Upper', player, multiworld)
+    region_map[RID.LEVEL_5_B] = Region('Level 5 Boss', player, multiworld)
     region_map[RID.LEVEL_6] = Region('Level 6', player, multiworld)
     region_map[RID.LEVEL_7] = Region('Level 7', player, multiworld)
     region_map[RID.LEVEL_8] = Region('Level 8', player, multiworld)

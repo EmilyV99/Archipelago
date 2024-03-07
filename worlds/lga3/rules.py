@@ -13,6 +13,8 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)
     arrow_rule = lambda state: state.has('Progressive Quiver', player) and state.has('Bow', player)
     arrow_2_rule = lambda state: arrow_rule(state) and state.has('Progressive Arrows', player)
+    candle_2_rule = lambda state: state.has('Progressive Lantern',player,2)
+    wand_rule = lambda state: state.has('Wand',player)
     rock_rule = lambda state: state.has('Magic Rock', player)
     tunic_1_rule = lambda state: state.has('Progressive Tunic',player,1)
     tunic_2_rule = lambda state: state.has('Progressive Tunic',player,2)
@@ -21,7 +23,9 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     sword_2_rule = lambda state: state.has('Progressive Sword',player,2)
     sword_3_rule = lambda state: state.has('Progressive Sword',player,3)
     sword_4_rule = lambda state: state.has('Progressive Sword',player,4)
-    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state)
+    hammer_rule = lambda state: state.has('Hammer',player)
+    melee_rule = lambda state: sword_1_rule(state) or hammer_rule(state)
+    
     basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state)
     fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state))
     heavy_1_rule = lambda state: state.has('Progressive Bracelet',player)
@@ -39,70 +43,97 @@ def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> Non
     divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2)
     tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
     
-    region_map[RID.MENU].connect(connecting_region=region_map[RID.GRASSLAND])
+    weapon_rules = [('no_arrow',arrow_rule),('no_bomb',bomb_rule),('no_sword',sword_1_rule),('no_hammer',hammer_rule),('no_fire',candle_2_rule),('no_wand',wand_rule)]
+    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state) or hammer_rule(state)
     
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.KAKARIKO])
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.MOUNTAIN],
-        rule = basic_fighter_rule)
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.DESERT],
-        rule = fighter_rule)
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.GRAVEYARD],
-        rule = fighter_rule)
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.ICE],
-        rule = fighter_rule)
+    def make_wpn_rule(tags: List[str]):
+        if 'wpn_restr' in tags:
+            used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
+            def wpn_restr_rule(state):
+                for rule in used_wpn_rules:
+                    if rule(state):
+                        return True
+                return False
+            return wpn_restr_rule
+        else:
+            return weapon_rule
     
-    region_map[RID.KAKARIKO].connect(connecting_region=region_map[RID.LEVEL_1])
+    if True: # Region connecting
+        region_map[RID.MENU].connect(connecting_region=region_map[RID.GRASSLAND])
+        
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.KAKARIKO])
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.MOUNTAIN],
+            rule = basic_fighter_rule)
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.DESERT],
+            rule = fighter_rule)
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.GRAVEYARD],
+            rule = fighter_rule)
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.ICE],
+            rule = fighter_rule)
+        
+        region_map[RID.KAKARIKO].connect(connecting_region=region_map[RID.LEVEL_1])
+        
+        region_map[RID.LEVEL_1].connect(connecting_region=region_map[RID.LEVEL_1_R],
+            rule = lambda state: key_rule(state,1))
+        region_map[RID.LEVEL_1_R].connect(connecting_region=region_map[RID.LEVEL_1_B],
+            rule = lambda state: bkey_rule(state,1))
+        
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_2],
+            rule = basic_fighter_rule)
+        region_map[RID.LEVEL_2].connect(connecting_region=region_map[RID.LEVEL_2_B],
+            rule = lambda state: key_rule(state,2) and bkey_rule(state,2))
+        
+        region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_3_F])
+        region_map[RID.LEVEL_3_F].connect(connecting_region=region_map[RID.LEVEL_3],
+            rule = jump_1_rule)
+        region_map[RID.LEVEL_3].connect(connecting_region=region_map[RID.LEVEL_3_R],
+            rule = lambda state: key_rule(state,3))
+        region_map[RID.LEVEL_3_R].connect(connecting_region=region_map[RID.LEVEL_3_R2],
+            rule = hook_rule)
+        region_map[RID.LEVEL_3_R2].connect(connecting_region=region_map[RID.LEVEL_3_B],
+            rule = lambda state: bkey_rule(state,3))
+        
+        region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_4_F],
+            rule = hook_rule)
+        region_map[RID.LEVEL_4_F].connect(connecting_region=region_map[RID.LEVEL_4],
+            rule = jump_2_rule)
+        
+        region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_5],
+            rule = flipper_rule)
+        region_map[RID.LEVEL_5].connect(connecting_region=region_map[RID.LEVEL_5_U],
+            rule = lambda state: key_rule(state,5))
+        region_map[RID.LEVEL_5_U].connect(connecting_region=region_map[RID.LEVEL_5_B],
+            rule = lambda state: bkey_rule(state,5))
+        
+        region_map[RID.DESERT].connect(connecting_region=region_map[RID.LEVEL_6])
+        region_map[RID.GRAVEYARD].connect(connecting_region=region_map[RID.LEVEL_7],
+            rule = lambda state: True) # Needs Lens
+        region_map[RID.ICE].connect(connecting_region=region_map[RID.LEVEL_8],
+            rule = lambda state: True) # Needs Lens
+        tri_count = include_item_name('Triforce Fragment', options)
+        region_map[RID.DESERT].connect(connecting_region=region_map[RID.LEVEL_9],
+            rule = lambda state: state.has('Triforce Fragment', player, tri_count))
     
-    region_map[RID.LEVEL_1].connect(connecting_region=region_map[RID.LEVEL_1_R],
-        rule = lambda state: key_rule(state,1))
-    region_map[RID.LEVEL_1_R].connect(connecting_region=region_map[RID.LEVEL_1_B],
-        rule = lambda state: bkey_rule(state,1))
-    
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_2],
-        rule = basic_fighter_rule)
-    region_map[RID.LEVEL_2].connect(connecting_region=region_map[RID.LEVEL_2_B],
-        rule = lambda state: key_rule(state,2) and bkey_rule(state,2))
-    
-    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_3_F])
-    region_map[RID.LEVEL_3_F].connect(connecting_region=region_map[RID.LEVEL_3],
-        rule = jump_1_rule)
-    region_map[RID.LEVEL_3].connect(connecting_region=region_map[RID.LEVEL_3_R],
-        rule = lambda state: key_rule(state,3))
-    region_map[RID.LEVEL_3_R].connect(connecting_region=region_map[RID.LEVEL_3_R2],
-        rule = hook_rule)
-    region_map[RID.LEVEL_3_R2].connect(connecting_region=region_map[RID.LEVEL_3_B],
-        rule = lambda state: bkey_rule(state,3))
-    
-    region_map[RID.MOUNTAIN].connect(connecting_region=region_map[RID.LEVEL_4_F],
-        rule = hook_rule)
-    region_map[RID.LEVEL_4_F].connect(connecting_region=region_map[RID.LEVEL_4],
-        rule = jump_2_rule)
-    
-    region_map[RID.GRASSLAND].connect(connecting_region=region_map[RID.LEVEL_5],
-        rule = flipper_rule)
-    
-    region_map[RID.DESERT].connect(connecting_region=region_map[RID.LEVEL_6])
-    region_map[RID.GRAVEYARD].connect(connecting_region=region_map[RID.LEVEL_7],
-        rule = lambda state: True) # Needs Lens
-    region_map[RID.ICE].connect(connecting_region=region_map[RID.LEVEL_8],
-        rule = lambda state: True) # Needs Lens
-    tri_count = include_item_name('Triforce Fragment', options)
-    region_map[RID.DESERT].connect(connecting_region=region_map[RID.LEVEL_9],
-        rule = lambda state: state.has('Triforce Fragment', player, tri_count))
-    
-    _set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
+    #_set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
     
     locs_list: List[(LGA3_Location,LocInfo)] = []
     for locinfo in location_table:
         locs_list.append((multiworld.get_location(locinfo.name,player),locinfo))
     
     for loc,locinfo in locs_list:
+        need_wpn = False
         if 'kill' in locinfo.tags:
             if options.magic_rock_for_kill_all:
                 add_rule(loc, rock_rule)
-            add_rule(loc, weapon_rule)
+            need_wpn = True
         elif 'wpn' in locinfo.tags:
-            add_rule(loc, weapon_rule)
+            need_wpn = True
+        
+        if need_wpn:
+            add_rule(loc, make_wpn_rule(locinfo.tags))
+        
+        if 'melee' in locinfo.tags:
+            add_rule(loc, melee_rule)
         
         if 'bomb' in locinfo.tags:
             add_rule(loc, bomb_rule)

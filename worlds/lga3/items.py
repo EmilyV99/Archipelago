@@ -24,7 +24,7 @@ item_table = [
     ItemInfo('Progressive Charge Ring', 'A weapon charge speed upgrade', ItemClassification.useful),
     ItemInfo('Progressive Shield', 'A shield upgrade', ItemClassification.progression),
     ItemInfo('Progressive Boomerang', 'A boomerang upgrade', ItemClassification.useful),
-    ItemInfo('Progressive Lantern', 'A lantern upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Lantern', 'A lantern upgrade', ItemClassification.progression),
     ItemInfo('Progressive Wallet', 'Increases max money', ItemClassification.progression),
     ItemInfo('Progressive Coupon', 'Decreases shop prices', ItemClassification.progression),
     ItemInfo('Progressive Bracelet', 'Increase pushing strength', ItemClassification.progression),
@@ -34,6 +34,7 @@ item_table = [
     ItemInfo('Hammer', 'The Hammer', ItemClassification.progression),
     ItemInfo('Magic Rock', 'Hints towards nearby secrets', ItemClassification.progression),
     ItemInfo('Divine Fire', 'Blasts the whole screen in Divine Fire', ItemClassification.progression),
+    ItemInfo('Divine Escape', 'Returns you to the start of the dungeon / overworld', ItemClassification.progression),
     ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
     ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
@@ -45,7 +46,7 @@ item_table = [
     ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
     ItemInfo('Compass 3', 'Dungeon Compass for Level 3', ItemClassification.filler),
     ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
-    #ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
+    ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
     #ItemInfo('Compass 6', 'Dungeon Compass for Level 6', ItemClassification.filler),
     #ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
     #ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
@@ -53,7 +54,7 @@ item_table = [
     ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
     ItemInfo('Map 3', 'Dungeon Map for Level 3', ItemClassification.filler),
     ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
-    #ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
+    ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
     #ItemInfo('Map 6', 'Dungeon Map for Level 6', ItemClassification.filler),
     #ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
     #ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
@@ -61,7 +62,7 @@ item_table = [
     ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
     ItemInfo('LKey 3', 'Level Key for Level 3', ItemClassification.progression),
     #Non-existent #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
-    #ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
+    ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
     #ItemInfo('LKey 6', 'Level Key for Level 6', ItemClassification.progression),
     #ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
     #ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
@@ -69,7 +70,7 @@ item_table = [
     ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
     ItemInfo('Boss Key 3', 'Boss Key for Level 3', ItemClassification.progression),
     #Non-existent #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
-    #ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
+    ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
     #ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
     #ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
     #ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
@@ -84,13 +85,13 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 4 #!TODO more
+            return 5 #!TODO more
         case 'Heart Container':
-            return 7 #!TODO more
+            return 8 #!TODO more
         case 'Magic Container':
             return 4 #!TODO more
         case 'Bomb Ammo x4':
-            return 1
+            return 2
         case 'Bomb Ammo x30':
             return 1
         
@@ -122,14 +123,14 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Coupon':
             return 1 #!TODO more
         case 'Progressive Bracelet':
-            return 1 #!TODO more
+            return 2
         case 'Progressive Hookshot':
             return 2
         
         case 'Progressive Life Ring':
             return 2 #!TODO more
         case 'Progressive Magic Ring':
-            return 2 #!TODO more
+            return 3 #!TODO more
         case 'Progressive Charge Ring':
             return 1 #!TODO more
         
