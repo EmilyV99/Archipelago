@@ -38,25 +38,22 @@ class LGA3_World(World):
     item_name_to_id = item_name_to_id
     #item_name_groups = item_name_groups
     
-    region_map: Dict[RID, Region]
-    
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
-        self.region_map = {}
     
     def create_regions(self) -> None:
-        create_regions(self.multiworld, self.player, self.options, self.region_map)
+        create_regions(self)
 
     def create_items(self) -> None:
-        create_items(self.multiworld, self.player, self.options)
+        create_items(self)
     
     def create_item(self, name: str) -> LGA3_Item:
         return create_item(name, self.player)
     
     def set_rules(self) -> None:
-        set_rules(self.multiworld, self.player, self.options, self.region_map)
+        set_rules(self)
         
     def generate_output(self, output_directory: str) -> None:
         from Utils import visualize_regions
-        visualize_regions(self.region_map[RID.MENU], f"output/lga3_world.puml")
+        visualize_regions(self.get_region(RID.MENU), f"output/lga3_world.puml")
 

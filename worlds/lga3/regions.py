@@ -1,42 +1,20 @@
 from typing import Dict
-from BaseClasses import MultiWorld, Region, Entrance, Location
+from BaseClasses import Region
+from worlds.AutoWorld import World
 from .locations import location_table, LGA3_Location
 from .common import *
-from .options import LGA3_Options
 
-def create_regions(multiworld: MultiWorld, player: int, options: LGA3_Options, region_map: Dict[RID, Region]):
-    region_map[RID.MENU] = Region('Menu', player, multiworld);
-    region_map[RID.GRASSLAND] = Region('Grassland', player, multiworld)
-    region_map[RID.KAKARIKO] = Region('Kakariko', player, multiworld)
-    region_map[RID.MOUNTAIN] = Region('Mountain', player, multiworld)
-    region_map[RID.DESERT] = Region('Desert', player, multiworld)
-    region_map[RID.GRAVEYARD] = Region('Graveyard', player, multiworld)
-    region_map[RID.ICE] = Region('Ice', player, multiworld)
-    region_map[RID.LEVEL_1] = Region('Level 1', player, multiworld)
-    region_map[RID.LEVEL_1_R] = Region('Level 1 Right', player, multiworld)
-    region_map[RID.LEVEL_1_B] = Region('Level 1 Boss', player, multiworld)
-    region_map[RID.LEVEL_2] = Region('Level 2', player, multiworld)
-    region_map[RID.LEVEL_2_B] = Region('Level 2 Boss', player, multiworld)
-    region_map[RID.LEVEL_3] = Region('Level 3', player, multiworld)
-    region_map[RID.LEVEL_3_F] = Region('Level 3 Front', player, multiworld)
-    region_map[RID.LEVEL_3_R] = Region('Level 3 Right', player, multiworld)
-    region_map[RID.LEVEL_3_R2] = Region('Level 3 Right 2', player, multiworld)
-    region_map[RID.LEVEL_3_B] = Region('Level 3 Boss', player, multiworld)
-    region_map[RID.LEVEL_4_F] = Region('Level 4 Front', player, multiworld)
-    region_map[RID.LEVEL_4] = Region('Level 4', player, multiworld)
-    region_map[RID.LEVEL_5] = Region('Level 5', player, multiworld)
-    region_map[RID.LEVEL_5_U] = Region('Level 5 Upper', player, multiworld)
-    region_map[RID.LEVEL_5_B] = Region('Level 5 Boss', player, multiworld)
-    region_map[RID.LEVEL_6] = Region('Level 6', player, multiworld)
-    region_map[RID.LEVEL_7] = Region('Level 7', player, multiworld)
-    region_map[RID.LEVEL_8] = Region('Level 8', player, multiworld)
-    region_map[RID.LEVEL_9] = Region('Level 9', player, multiworld)
+def create_regions(world: World) -> None:
+    multiworld = world.multiworld
+    player = world.player
+    
+    for rid in RID:
+        multiworld.regions.append(Region(rid, player, multiworld))
     
     for locid,locinfo in enumerate(location_table, base_number_id):
-        region = region_map[locinfo.region_id]
+        region = world.get_region(locinfo.region_id)
         if region:
             region.locations.append(LGA3_Location(player, locinfo.name, locid, region))
-    region_map[RID.LEVEL_9].locations.append(LGA3_Location(player, 'Ganon', None, region_map[RID.LEVEL_9]));
-    for i,reg in region_map.items():
-        multiworld.regions.append(reg)
-    
+    l9 = world.get_region(RID.LEVEL_9)
+    l9.locations.append(LGA3_Location(player, 'Ganon', None, l9));
+

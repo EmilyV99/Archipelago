@@ -1,5 +1,6 @@
 from typing import NamedTuple, Self
-from BaseClasses import MultiWorld, Item, ItemClassification
+from BaseClasses import Item, ItemClassification
+from worlds.AutoWorld import World
 from .common import *
 from .options import LGA3_Options
 
@@ -147,7 +148,11 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
     return 1
 def include_item(itm: LGA3_Item, options: LGA3_Options) -> int:
     return include_item_name(itm.name, options)
-def create_items(multiworld: MultiWorld, player: int, options: LGA3_Options) -> None:
+
+def create_items(world: World) -> None:
+    multiworld = world.multiworld
+    player = world.player
+    options = world.options
     exclude = [item for item in multiworld.precollected_items[player]]
     
     nothing_item = LGA3_Item(item_table[0].name, item_table[0].flag, 0, player)
@@ -168,3 +173,4 @@ def create_item(name: str, player: int) -> LGA3_Item:
 
 def create_event_item(event: str, player: int) -> LGA3_Item:
     return LGA3_Item(event, ItemClassification.progression, None, player)
+

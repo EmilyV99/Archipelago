@@ -1,35 +1,35 @@
-from enum import Enum
+from enum import StrEnum
 
 base_number_id = 100000
 gamename = 'ZQC LGA3 Remastered'
 game_disp_name = 'Link\'s Grand Adventure 3: Remastered'
 
-class RID(Enum):
-    MENU = -1
-    GRASSLAND = 0
-    KAKARIKO = 1
-    MOUNTAIN = 2
-    DESERT = 3
-    GRAVEYARD = 4
-    ICE = 5
-    LEVEL_1 = 10
-    LEVEL_1_R = 11
-    LEVEL_1_B = 12
-    LEVEL_2 = 20
-    LEVEL_2_B = 21
-    LEVEL_3_F = 30
-    LEVEL_3 = 31
-    LEVEL_3_R = 32
-    LEVEL_3_R2 = 33
-    LEVEL_3_B = 34
-    LEVEL_4_F = 40
-    LEVEL_4 = 41
-    LEVEL_5 = 50
-    LEVEL_5_U = 51
-    LEVEL_5_B = 52
-    LEVEL_6 = 60
-    LEVEL_7 = 70
-    LEVEL_8 = 80
-    LEVEL_9 = 90
+class RID(StrEnum):
+    MENU = 'Menu'
+    GRASSLAND = 'Grassland'
+    KAKARIKO = 'Kakariko'
+    MOUNTAIN = 'Mountain'
+    DESERT = 'Desert'
+    GRAVEYARD = 'Graveyard'
+    ICE = 'Ice'
+    LEVEL_1 = 'Level 1'
+    LEVEL_1_R = 'Level 1 Right'
+    LEVEL_1_B = 'Level 1 Boss'
+    LEVEL_2 = 'Level 2'
+    LEVEL_2_B = 'Level 2 Boss'
+    LEVEL_3_F = 'Level 3 Front'
+    LEVEL_3 = 'Level 3'
+    LEVEL_3_R = 'Level 3 Right'
+    LEVEL_3_R2 = 'Level 3 Right 2'
+    LEVEL_3_B = 'Level 3 Boss'
+    LEVEL_4_F = 'Level 4 Front'
+    LEVEL_4 = 'Level 4'
+    LEVEL_5 = 'Level 5'
+    LEVEL_5_U = 'Level 5 Upper'
+    LEVEL_5_B = 'Level 5 Boss'
+    LEVEL_6 = 'Level 6'
+    LEVEL_7 = 'Level 7'
+    LEVEL_8 = 'Level 8'
+    LEVEL_9 = 'Level 9'
 
 
