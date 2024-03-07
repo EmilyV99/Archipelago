@@ -1,13 +1,12 @@
-from typing import List, Optional
-from BaseClasses import MultiWorld, Item, ItemClassification
+from typing import List, Optional, Dict
+from BaseClasses import MultiWorld, Item, ItemClassification, Region
 from ..generic.Rules import set_rule, add_rule, CollectionRule
 from .common import *
 from .items import create_event_item, create_item, include_item_name
 from .locations import LGA3_Location, LocInfo, location_table
 from .options import LGA3_Options
-from .regions import region_map
 
-def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options) -> None:
+def set_rules(multiworld: MultiWorld, player: int, options: LGA3_Options, region_map: Dict[RID, Region]) -> None:
     bomb_rule = lambda state: state.has('Progressive Bomb Bag', player)
     jump_1_rule = lambda state: state.has('Progressive Jump', player)
     jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)

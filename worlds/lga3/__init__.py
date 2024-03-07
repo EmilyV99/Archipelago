@@ -1,6 +1,6 @@
 import settings
 import typing
-from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
+from BaseClasses import Region, Location, Item, ItemClassification, Tutorial, MultiWorld
 from worlds.AutoWorld import World, WebWorld
 from .options import LGA3_Options, options_presets
 from .locations import *
@@ -37,8 +37,15 @@ class LGA3_World(World):
     location_name_to_id = location_name_to_id
     item_name_to_id = item_name_to_id
     #item_name_groups = item_name_groups
+    
+    region_map: Dict[RID, Region]
+    
+    def __init__(self, multiworld: MultiWorld, player: int):
+        super().__init__(multiworld, player)
+        self.region_map = {}
+    
     def create_regions(self) -> None:
-        create_regions(self.multiworld, self.player, self.options)
+        create_regions(self.multiworld, self.player, self.options, self.region_map)
 
     def create_items(self) -> None:
         create_items(self.multiworld, self.player, self.options)
@@ -47,9 +54,9 @@ class LGA3_World(World):
         return create_item(name, self.player)
     
     def set_rules(self) -> None:
-        set_rules(self.multiworld, self.player, self.options)
+        set_rules(self.multiworld, self.player, self.options, self.region_map)
         
     def generate_output(self, output_directory: str) -> None:
         from Utils import visualize_regions
-        visualize_regions(region_map[RID.MENU], f"output/lga3_world.puml")
+        visualize_regions(self.region_map[RID.MENU], f"output/lga3_world.puml")
 

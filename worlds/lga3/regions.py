@@ -1,11 +1,10 @@
-import typing
+from typing import Dict
 from BaseClasses import MultiWorld, Region, Entrance, Location
 from .locations import location_table, LGA3_Location
 from .common import *
 from .options import LGA3_Options
 
-region_map: typing.Dict[RID, Region] = {}
-def create_regions(multiworld: MultiWorld, player: int, options: LGA3_Options):
+def create_regions(multiworld: MultiWorld, player: int, options: LGA3_Options, region_map: Dict[RID, Region]):
     region_map[RID.MENU] = Region('Menu', player, multiworld);
     region_map[RID.GRASSLAND] = Region('Grassland', player, multiworld)
     region_map[RID.KAKARIKO] = Region('Kakariko', player, multiworld)
