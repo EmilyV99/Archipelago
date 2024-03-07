@@ -51,15 +51,16 @@ item_table = [
     ItemInfo('Potion (Green)', 'Red Potion (and the ability to buy more)', ItemClassification.progression),
     ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
     ItemInfo('Bomb Ammo x30', '30 Bombs', ItemClassification.filler),
-    ItemInfo('Rupees x500', '500 Rupees', ItemClassification.filler),
     ItemInfo('Rupees x50', '50 Rupees', ItemClassification.filler),
+    ItemInfo('Rupees x100', '100 Rupees', ItemClassification.filler),
+    ItemInfo('Rupees x500', '500 Rupees', ItemClassification.filler),
     ItemInfo('Compass 1', 'Dungeon Compass for Level 1', ItemClassification.filler),
     ItemInfo('Compass 2', 'Dungeon Compass for Level 2', ItemClassification.filler),
     ItemInfo('Compass 3', 'Dungeon Compass for Level 3', ItemClassification.filler),
     ItemInfo('Compass 4', 'Dungeon Compass for Level 4', ItemClassification.filler),
     ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
     ItemInfo('Compass 6', 'Dungeon Compass for Level 6', ItemClassification.filler),
-    #ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
+    ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
     #ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
     ItemInfo('Map 1', 'Dungeon Map for Level 1', ItemClassification.filler),
     ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
@@ -67,7 +68,7 @@ item_table = [
     ItemInfo('Map 4', 'Dungeon Map for Level 4', ItemClassification.filler),
     ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
     ItemInfo('Map 6', 'Dungeon Map for Level 6', ItemClassification.filler),
-    #ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
+    ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
     #ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
     ItemInfo('LKey 1', 'Level Key for Level 1', ItemClassification.progression),
     ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
@@ -75,7 +76,7 @@ item_table = [
     #Non-existent #ItemInfo('LKey 4', 'Level Key for Level 4', ItemClassification.progression),
     ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
     ItemInfo('LKey 6', 'Level Key for Level 6', ItemClassification.progression),
-    #ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
+    ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
     #ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
     ItemInfo('Boss Key 1', 'Boss Key for Level 1', ItemClassification.progression),
     ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
@@ -83,11 +84,11 @@ item_table = [
     #Non-existent #ItemInfo('Boss Key 4', 'Boss Key for Level 4', ItemClassification.progression),
     ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
     ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
-    #ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
+    ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
     #ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
     ]
 item_name_to_id = {name: num for num,(name,_desc,_) in enumerate(item_table,base_number_id)}
-key_counts = [0,1,1,0,1,2,0,0,0,0] #levels 0-9
+key_counts = [0,1,1,1,0,1,2,2,0,0] #levels 0-9
 
 def include_item_name(name: str, options: LGA3_Options) -> int:
     match name:
@@ -96,9 +97,9 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 6 #!TODO more
+            return 7 #!TODO more
         case 'Heart Container':
-            return 9 #!TODO more
+            return 10 #!TODO more
         case 'Magic Container':
             return 6
         case 'Bomb Ammo x4':
@@ -106,6 +107,8 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Bomb Ammo x30':
             return 1
         case 'Rupees x500':
+            return 1
+        case 'Rupees x100':
             return 1
         case 'Rupees x50':
             return 2
@@ -131,7 +134,7 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Jump':
             return 2
         case 'Progressive Wallet':
-            return 1 #!TODO more
+            return 2
         case 'Progressive Lantern':
             return 2
         case 'Progressive Boomerang':
@@ -141,9 +144,9 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Quiver':
             return 2 #!TODO more
         case 'Progressive Shield':
-            return 2 #!TODO more
+            return 3
         case 'Progressive Coupon':
-            return 1 #!TODO more
+            return 2 #!TODO more
         case 'Progressive Bracelet':
             return 2
         case 'Progressive Hookshot':

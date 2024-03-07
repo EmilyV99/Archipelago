@@ -123,6 +123,17 @@ location_table = [
     LocInfo('Well: Lens',                      RID.THE_WELL,       [], 'Give 40 bombs and cheese to gibdos'), #5x74
     LocInfo('Well: Green Potion',              RID.THE_WELL,       ['kill','wpn'], 'Give 10 arrows and 20 rupees to gibdos'), #5x62
     LocInfo('Well: Cheese',                    RID.THE_WELL,       [], 'Give 10 arrows, 50 rupees, and all 3 potions to gibdos'), #5x52
+    LocInfo('L7 KillAll: Compass',             RID.LEVEL_7,        ['kill','wpn','compass'], 'Kill gibdos on the left'), #5x56
+    LocInfo('L7 KillAll: Map',                 RID.LEVEL_7,        ['kill','wpn','map'], 'Kill gibdos on the right'), #5x58
+    LocInfo('L7 KillAll: Wallet',              RID.LEVEL_7_O,      ['kill','bomb'], 'Kill dodongos on the left'), #5x36
+    LocInfo('L7 KillAll: Coupon',              RID.LEVEL_7_O,      ['kill','bomb'], 'Kill dodongos on the right'), #5x38
+    LocInfo('L7 KillAll: Shield',              RID.LEVEL_7_O,      ['kill','wpn_restr','no_arrow','no_fire','no_wand'], 'Kill wizzrobes on the left'), #5x15
+    LocInfo('L7 KillAll: LKey 1',              RID.LEVEL_7_O,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','key'], 'Kill wizzrobes on the right'), #5x19
+    LocInfo('L7 KillAll: LKey 2',              RID.LEVEL_7_C,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','key'], 'Kill wizzrobes in the left-center'), #5x16
+    LocInfo('L7 KillAll: Boss Key',            RID.LEVEL_7_C,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','bkey'], 'Kill wizzrobes in the right-center'), #5x18
+    LocInfo('L7 KillAll: Money',               RID.LEVEL_7_C,      ['kill','wpn'], 'Kill purple leevers before the boss'), #5x08
+    LocInfo('L7 Boss Reward',                  RID.LEVEL_7_B,      ['shield3'], 'Kill the L7 Boss'), #5x07
+    LocInfo('L7 Dungeon Reward',               RID.LEVEL_7_B,      ['shield3'], 'Beat L7'), #5x06
     LocInfo('L9: Tunic Path',                  RID.LEVEL_9,        [], 'Item after the gold tunic gauntlet'), #3x4A
     ]
 location_name_to_id = {loc.name: num for num,loc in enumerate(location_table,base_number_id)}

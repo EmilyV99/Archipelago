@@ -35,6 +35,9 @@ class RID(StrEnum):
     LEVEL_6_B = 'Level 6 Boss' #post-bkey
     THE_WELL = 'Bottom Of The Well'
     LEVEL_7 = 'Level 7'
+    LEVEL_7_O = 'Level 7 Outer' #post-melee, both sides
+    LEVEL_7_C = 'Level 7 Center' #post-key
+    LEVEL_7_B = 'Level 7 Boss' #post-2key+bkey
     LEVEL_8 = 'Level 8'
     LEVEL_9 = 'Level 9'
 

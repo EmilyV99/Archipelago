@@ -16,13 +16,9 @@ def set_rules(world: World) -> None:
         add_rule(multiworld.get_location(name,player), rule)
     
     bomb_rule = lambda state: state.has('Progressive Bomb Bag', player)
-    jump_1_rule = lambda state: state.has('Progressive Jump', player)
-    jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)
     arrow_rule = lambda state: state.has('Progressive Quiver', player) and state.has('Bow', player)
     arrow_2_rule = lambda state: arrow_rule(state) and state.has('Progressive Arrows', player)
     candle_2_rule = lambda state: state.has('Progressive Lantern',player,2)
-    distant_fire_rule = lambda state: state.has('Divine Fire',player) or state.has('Progressive Boomerang',player,3) or state.has_all(['Wand','Magic Book'],player)
-    wand_rule = lambda state: state.has('Wand',player)
     magic_rock_rule = lambda state: state.has('Magic Rock', player)
     tunic_1_rule = lambda state: state.has('Progressive Tunic',player,1)
     tunic_2_rule = lambda state: state.has('Progressive Tunic',player,2)
@@ -33,15 +29,27 @@ def set_rules(world: World) -> None:
     sword_4_rule = lambda state: state.has('Progressive Sword',player,4)
     hammer_rule = lambda state: state.has('Hammer',player)
     melee_rule = lambda state: sword_1_rule(state) or hammer_rule(state)
+    wand_rule = lambda state: state.has('Wand',player)
     
+    divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2)
     basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state)
     fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state))
+    tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
+    
+    weapon_rules = [('no_arrow',arrow_rule),('no_bomb',bomb_rule),('no_sword',sword_1_rule),('no_hammer',hammer_rule),('no_fire',candle_2_rule),('no_wand',wand_rule)]
+    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state) or hammer_rule(state)
+    
+    jump_1_rule = lambda state: state.has('Progressive Jump', player)
+    jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)
+    distant_fire_rule = lambda state: state.has('Divine Fire',player) or state.has('Progressive Boomerang',player,3) or state.has_all(['Wand','Magic Book'],player)
+    
     heavy_1_rule = lambda state: state.has('Progressive Bracelet',player)
     heavy_2_rule = lambda state: state.has('Progressive Bracelet',player,2)
     flipper_rule = lambda state: state.has('Flippers',player)
     hook_rule = lambda state: state.has('Progressive Hookshot',player)
     lens_rule = lambda state: state.has('Lens of Truth',player)
     hidden_rule = lambda state: lens_rule(state) or magic_rock_rule(state)
+    shield_3_rule = lambda state: state.has('Progressive Shield',player,3)
     
     key_rule = lambda state,lvl,count=1: state.has(f'LKey {lvl}', player, count)
     bkey_rule = lambda state,lvl: state.has(f'Boss Key {lvl}', player)
@@ -50,11 +58,6 @@ def set_rules(world: World) -> None:
     pay_1_2 = lambda state: state.has('Progressive Wallet', player) or state.has('Progressive Coupon', player, 2)
     pay_1_3 = lambda state: state.has('Progressive Wallet', player) or state.has('Progressive Coupon', player, 3)
     
-    divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2)
-    tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
-    
-    weapon_rules = [('no_arrow',arrow_rule),('no_bomb',bomb_rule),('no_sword',sword_1_rule),('no_hammer',hammer_rule),('no_fire',candle_2_rule),('no_wand',wand_rule)]
-    weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state) or hammer_rule(state)
     
     def make_wpn_rule(tags: List[str]):
         used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
@@ -128,6 +131,12 @@ def set_rules(world: World) -> None:
         world.get_region(RID.GRAVEYARD).connect(connecting_region = world.get_region(RID.THE_WELL))
         world.get_region(RID.GRAVEYARD).connect(connecting_region = world.get_region(RID.LEVEL_7),
             rule = lens_rule)
+        world.get_region(RID.LEVEL_7).connect(connecting_region = world.get_region(RID.LEVEL_7_O),
+            rule = melee_rule)
+        world.get_region(RID.LEVEL_7).connect(connecting_region = world.get_region(RID.LEVEL_7_C),
+            rule = lambda state: key_rule(state,7) and shield_3_rule(state))
+        world.get_region(RID.LEVEL_7_C).connect(connecting_region = world.get_region(RID.LEVEL_7_B),
+            rule = lambda state: key_rule(state,7,2) and bkey_rule(state,7))
         world.get_region(RID.ICE).connect(connecting_region = world.get_region(RID.LEVEL_8),
             rule = lens_rule)
         
@@ -138,7 +147,14 @@ def set_rules(world: World) -> None:
     
     locs_list: List[LGA3_Location] = multiworld.get_locations(player)
     
-    for loc in locs_list: # Apply common rules via tags
+    # Apply uncommon rules directly
+    _set_rule('Well: Bomb Bag', bomb_rule)
+    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,2) and state.has('Cheese',player))
+    _set_rule('Well: Green Potion', lambda state: state.has('Progressive Quiver',player))
+    _set_rule('Well: Cheese', lambda state: state.has('Progressive Quiver',player) and state.has('Progressive Bottle',player)) #!TODO potion logic
+    _set_rule('L7 KillAll: Money', lambda state: key_rule(state,7,2))
+    # Apply common rules via tags
+    for loc in locs_list:
         if loc.info is None:
             continue
         tags = loc.info.tags
@@ -175,6 +191,9 @@ def set_rules(world: World) -> None:
             add_rule(loc, sword_2_rule)
         elif 'sword' in tags:
             add_rule(loc, sword_1_rule)
+        
+        if 'shield3' in tags:
+            add_rule(loc, shield_3_rule)
         
         if 'tough_fight' in tags:
             add_rule(loc, tough_fight_rule)
@@ -220,13 +239,6 @@ def set_rules(world: World) -> None:
             loc.place_locked_item(create_item('Progressive Sword', player))
         if options.sword_sanity == 0 and loc.name in ['L2 KillAll: Sword','Sword Under Block','Sword Under Tree']:
             loc.place_locked_item(create_item('Progressive Sword', player))
-    
-    # Apply uncommon rules directly
-    
-    _set_rule('Well: Bomb Bag', bomb_rule)
-    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,2) and state.has('Cheese',player))
-    _set_rule('Well: Green Potion', lambda state: state.has('Progressive Quiver',player))
-    _set_rule('Well: Cheese', lambda state: state.has('Progressive Quiver',player) and state.has('Progressive Bottle',player)) #!TODO potion logic
     
     # Set up the victory condition event
     ganon_loc = multiworld.get_location('Ganon', player)
