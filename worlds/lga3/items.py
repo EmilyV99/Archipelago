@@ -38,6 +38,7 @@ item_table = [
     ItemInfo('Divine Escape', 'Returns you to the start of the dungeon / overworld', ItemClassification.progression),
     ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
     ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
+    ItemInfo('Scroll: Cross Beams', 'Shoot beams when spinning', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
     ItemInfo('Magic Container', 'Extra max magic', ItemClassification.progression),
     ItemInfo('Triforce Fragment', 'MacGuffin', ItemClassification.progression),
@@ -90,7 +91,7 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Heart Container':
             return 8 #!TODO more
         case 'Magic Container':
-            return 4 #!TODO more
+            return 6
         case 'Bomb Ammo x4':
             return 2
         case 'Bomb Ammo x30':

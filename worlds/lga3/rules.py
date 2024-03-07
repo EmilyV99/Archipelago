@@ -114,7 +114,7 @@ def set_rules(world: World) -> None:
             rule = lambda state: True) # Needs Lens
         tri_count = include_item_name('Triforce Fragment', options)
         world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_9),
-            rule = lambda state: state.has('Triforce Fragment', player, tri_count))
+            rule = lambda state: state.has('Triforce Fragment', player, tri_count) and bomb_rule(state))
     
     #_set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
     

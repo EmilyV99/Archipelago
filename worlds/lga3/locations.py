@@ -30,7 +30,7 @@ location_table = [
     LocInfo('Kak Red Shop 2',                  RID.KAKARIKO,       ['shop'], '2nd item in red-roofed shop'), #3x00
     LocInfo('Kak Red Shop 3',                  RID.KAKARIKO,       ['shop'], '3rd item in red-roofed shop'), #3x00
     LocInfo('Kak Red Shop 4',                  RID.KAKARIKO,       ['shop','pay_1_2'], '4th item in red-roofed shop'), #3x00
-    #!TODO Kak Potion Shop? How to handle re-buying potions? Leaving Vanilla for now
+    #!TODO Kak Potion Shop? How to handle re-buying potions? Leaving Vanilla for now #3x01
     LocInfo('Kak Purple Shop 1',               RID.KAKARIKO,       ['shop','pay_1_1'], '1st item in purple-roofed shop'), #3x02
     LocInfo('Kak Purple Shop 2',               RID.KAKARIKO,       ['shop','pay_1_3'], '2nd item in purple-roofed shop'), #3x02
     LocInfo('Kak Purple Shop 3',               RID.KAKARIKO,       ['shop','pay_1_2'], '3rd item in purple-roofed shop'), #3x02
@@ -45,6 +45,10 @@ location_table = [
     LocInfo('Cave Shop 1',                     RID.MOUNTAIN,       ['shop','pay_1_3'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 2',                     RID.MOUNTAIN,       ['shop'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 3',                     RID.MOUNTAIN,       ['shop','pay_1_2'], 'In a lower-left mountain cave'), #2x50
+    #!TODO Super Bomb shop? How to handle re-buying? #2x70
+    LocInfo('KillAll: Cross Beams',            RID.DESERT,         ['kill'], 'Kill all the fire octos on a screen'), #1x07
+    LocInfo('KillAll: MagicC',                 RID.DESERT,         ['kill'], 'Kill all the fire octos on a screen'), #1x06
+    LocInfo('Hidden: MagicC',                  RID.DESERT,         ['bomb'], 'Bomb the mountain wall'), #1x05
     LocInfo('L1: Compass',                     RID.LEVEL_1,        ['compass'], 'In the first room'), #4x73
     LocInfo('L1 KillAll: Map',                 RID.LEVEL_1,        ['kill','map'], 'Kill all enemies in the upper-left room'), #4x62
     LocInfo('L1 KillAll: LKey',                RID.LEVEL_1,        ['kill','key'], 'Kill all enemies in the upper room'), #4x63
