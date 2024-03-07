@@ -30,18 +30,21 @@ item_table = [
     ItemInfo('Progressive Coupon', 'Decreases shop prices', ItemClassification.progression),
     ItemInfo('Progressive Bracelet', 'Increase pushing strength', ItemClassification.progression),
     ItemInfo('Progressive Hookshot', 'Hook to far targets', ItemClassification.progression),
+    ItemInfo('Progressive Traction', 'Slip less on ice', ItemClassification.useful),
     ItemInfo('Bow', 'The Bow, to shoot arrows with', ItemClassification.progression),
     ItemInfo('Wand', 'The Wand, to shoot magic with (and fire with the Magic Book)', ItemClassification.progression),
     ItemInfo('Magic Book', 'The Magic Book, powers up the Wand', ItemClassification.progression),
     ItemInfo('Hammer', 'The Hammer', ItemClassification.progression),
     ItemInfo('Magic Rock', 'Hints towards nearby secrets', ItemClassification.progression),
     ItemInfo('Divine Fire', 'Blasts the whole screen in Divine Fire', ItemClassification.progression),
+    ItemInfo('Divine Protection', 'Become invincible for a while', ItemClassification.progression),
     ItemInfo('Divine Escape', 'Returns you to the start of the dungeon / overworld', ItemClassification.progression),
     ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
     ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
     ItemInfo('Lens of Truth', 'See secrets and hidden things', ItemClassification.progression),
     ItemInfo('Cheese', 'Trade quest item', ItemClassification.progression),
     ItemInfo('Scroll: Cross Beams', 'Shoot beams when spinning', ItemClassification.useful),
+    ItemInfo('Scroll: Peril Beam', 'Shoot beams at low health', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
     ItemInfo('Magic Container', 'Extra max magic', ItemClassification.progression),
     ItemInfo('Half Magic', 'Reduced magic cost', ItemClassification.useful),
@@ -97,11 +100,11 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 7 #!TODO more
+            return 7
         case 'Heart Container':
-            return 10 #!TODO more
+            return 12
         case 'Magic Container':
-            return 6
+            return 7
         case 'Bomb Ammo x4':
             return 2
         case 'Bomb Ammo x30':
@@ -151,6 +154,8 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
             return 2
         case 'Progressive Hookshot':
             return 2
+        case 'Progressive Traction':
+            return 1
         
         case 'Progressive Life Ring':
             return 2 #!TODO more

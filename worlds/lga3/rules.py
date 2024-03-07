@@ -149,10 +149,11 @@ def set_rules(world: World) -> None:
     
     # Apply uncommon rules directly
     _set_rule('Well: Bomb Bag', bomb_rule)
-    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,2) and state.has('Cheese',player))
+    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,3) and state.has('Cheese',player))
     _set_rule('Well: Green Potion', lambda state: state.has('Progressive Quiver',player))
     _set_rule('Well: Cheese', lambda state: state.has('Progressive Quiver',player) and state.has('Progressive Bottle',player)) #!TODO potion logic
     _set_rule('L7 KillAll: Money', lambda state: key_rule(state,7,2))
+    _set_rule('Divine Protection', lambda state: state.has('Divine Fire',player))
     # Apply common rules via tags
     for loc in locs_list:
         if loc.info is None:

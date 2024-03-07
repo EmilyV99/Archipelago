@@ -50,9 +50,15 @@ location_table = [
     LocInfo('Cave Shop 3',                     RID.MOUNTAIN,       ['shop','pay_1_2'], 'In a lower-left mountain cave'), #2x50
     #!TODO Super Bomb shop? How to handle re-buying? #2x70
     LocInfo('KillAll: Cross Beams',            RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x07
-    LocInfo('KillAll: MagicC',                 RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x06
-    LocInfo('Hidden: MagicC',                  RID.DESERT,         ['bomb'], 'Bomb the mountain wall'), #1x05
-    LocInfo('Hidden: Half Magic',              RID.GRAVEYARD,      ['hidden'], 'Push a central grave'), #1x2E
+    LocInfo('KillAll: MagicC 4',               RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x06
+    LocInfo('Hidden MagicC 2',                 RID.DESERT,         ['bomb'], 'Bomb the mountain wall'), #1x05
+    LocInfo('Hidden Half Magic',               RID.GRAVEYARD,      ['hidden'], 'Push a central grave'), #1x2E
+    LocInfo('Traction Boots',                  RID.ICE,            ['bomb'], 'Bomb a suspicious wall'), #1x4D
+    LocInfo('Hidden HeartC 2',                 RID.ICE,            ['bomb'], 'Bomb a suspicious wall'), #1x4F
+    LocInfo('KillAll: MagicC 5',               RID.ICE,            ['kill','wpn'], 'Kill all the lynels on a screen'), #1x5B
+    LocInfo('Divine Protection',               RID.ICE,            [], 'Melt the frozen lake with powerful magic'), #1x5D
+    LocInfo('Hidden HeartC 3',                 RID.ICE,            ['hidden','bomb'], 'Bomb an icy boulder'), #1x6B
+    LocInfo('KillAll: Peril Beam',             RID.ICE,            ['kill','wpn'], 'Kill all the blue lynels in the woods'), #1x5F
     LocInfo('L1: Compass',                     RID.LEVEL_1,        ['compass'], 'In the first room'), #4x73
     LocInfo('L1 KillAll: Map',                 RID.LEVEL_1,        ['kill','wpn','map'], 'Kill all enemies in the upper-left room'), #4x62
     LocInfo('L1 KillAll: LKey',                RID.LEVEL_1,        ['kill','wpn','key'], 'Kill all enemies in the upper room'), #4x63
