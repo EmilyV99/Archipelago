@@ -59,7 +59,7 @@ def set_rules(world: World) -> None:
     pay_1_1 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player)
     pay_1_2 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player,2)
     pay_1_3 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player,3)
-    
+    money_rule = lambda state: sword_1_rule(state) or state.has('Progressive Boomerang',player) #can grind money
     
     #def make_wpn_rule(tags: List[str]):
         #used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
@@ -149,10 +149,11 @@ def set_rules(world: World) -> None:
         world.get_region(RID.LEVEL_8_U).connect(connecting_region = world.get_region(RID.LEVEL_8_B),
             rule = lambda state: bkey_rule(state,8))
         
-        
         tri_count = include_item_name('Triforce Fragment', options)
         world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_9),
-            rule = lambda state: state.has('Triforce Fragment', player, tri_count) and bomb_rule(state))
+            rule = lambda state: state.has('Triforce Fragment', player, tri_count) and bomb_rule(state) and tough_fight_rule(state))
+        world.get_region(RID.LEVEL_9).connect(connecting_region = world.get_region(RID.LEVEL_9_B),
+            rule = lambda state: bkey_rule(state,9))
     
     locs_list: List[LGA3_Location] = multiworld.get_locations(player)
     
@@ -163,6 +164,7 @@ def set_rules(world: World) -> None:
     _set_rule('Well: Cheese', lambda state: state.has('Progressive Quiver',player) and state.has('Progressive Bottle',player)) #!TODO potion logic
     _set_rule('L7 KillAll: Money', lambda state: key_rule(state,7,2))
     _set_rule('Divine Protection', lambda state: state.has('Divine Fire',player))
+    _set_rule('L9: Magic Path', lambda state: state.has_all(['Divine Fire','Divine Protection','Divine Escape'],player))
     # Apply common rules via tags
     for loc in locs_list:
         if loc.info is None:
@@ -215,6 +217,7 @@ def set_rules(world: World) -> None:
             add_rule(loc, hidden_rule)
         
         if 'shop' in tags:
+            add_rule(loc, money_rule)
             if 'pay_1_1' in tags:
                 add_rule(loc, pay_1_1)
             elif 'pay_1_2' in tags:

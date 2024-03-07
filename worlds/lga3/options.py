@@ -17,7 +17,7 @@ class MagicRock(DefaultOnToggle):
 class KeySanity(Choice):
     """Randomize keys?"""
     display_name = "KeySanity"
-    option_vanilla = 0 #!TODO KeySanity
+    option_vanilla = 0
     option_only_big = 1
     option_all = 2
     default = 0

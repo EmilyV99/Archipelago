@@ -92,6 +92,7 @@ item_table = [
     ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
     ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
     ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
+    ItemInfo('Boss Key 9', 'Boss Key for Level 9', ItemClassification.progression),
     ]
 item_name_to_id = {name: num for num,(name,_desc,_) in enumerate(item_table,base_number_id)}
 key_counts = [0,1,1,1,0,1,2,2,8,0] #levels 0-9
@@ -163,12 +164,12 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Traction':
             return 2
         case 'Progressive Arrows':
-            return 2
+            return 3
         
         case 'Progressive Life Ring':
-            return 2 #!TODO more
+            return 2
         case 'Progressive Magic Ring':
-            return 3 #!TODO more
+            return 4
         case 'Progressive Charge Ring':
             return 2
         

@@ -15,6 +15,6 @@ def create_regions(world: World) -> None:
         region = world.get_region(locinfo.region_id)
         if region:
             region.locations.append(LGA3_Location(player, locinfo.name, locid, region, locinfo))
-    l9 = world.get_region(RID.LEVEL_9)
-    l9.locations.append(LGA3_Location(player, 'Ganon', None, l9));
+    l9boss = world.get_region(RID.LEVEL_9_B)
+    l9boss.locations.append(LGA3_Location(player, 'Ganon', None, l9boss));
 

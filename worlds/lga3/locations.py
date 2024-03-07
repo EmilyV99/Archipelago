@@ -160,5 +160,8 @@ location_table = [
     LocInfo('L8 Boss Reward',                  RID.LEVEL_8_B,      ['arrow'], 'Kill the L8 Boss'), #6x0C
     LocInfo('L8 Dungeon Reward',               RID.LEVEL_8_B,      ['arrow'], 'Beat L8'), #6x0B
     LocInfo('L9: Tunic Path',                  RID.LEVEL_9,        [], 'Item after the gold tunic gauntlet'), #3x4A
+    LocInfo('L9: Magic Path',                  RID.LEVEL_9,        [], 'Item after the spell puzzle'), #3x6C
+    LocInfo('L9: Arrow Path',                  RID.LEVEL_9,        ['arrow2'], 'Item after the gold arrow gauntlet'), #3x4E
+    LocInfo('L9: Boss Key',                    RID.LEVEL_9,        ['bkey'], 'Kill the guards in front of the boss door'), #3x3C
     ]
 location_name_to_id = {loc.name: num for num,loc in enumerate(location_table,base_number_id)}

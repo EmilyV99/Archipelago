@@ -43,5 +43,6 @@ class RID(StrEnum):
     LEVEL_8_U = 'Level 8 Upper' #post-arrow
     LEVEL_8_B = 'Level 8 Boss' #post-bkey
     LEVEL_9 = 'Level 9'
+    LEVEL_9_B = 'Level 9 Boss'
 
 
