@@ -24,6 +24,7 @@ location_table = [
     LocInfo('Starting Bomb Bag',               RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Starting Magic Ring',             RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Starting Shield',                 RID.MENU,           [], 'In your starting inventory'),
+    LocInfo('Starting Arrows',                 RID.MENU,           [], 'In your starting inventory'),
     LocInfo('Sword Under Block',               RID.GRASSLAND,      ['heavy2'], 'Southwest from start, push a Very Heavy rock'), #1x53
     LocInfo('Sword Under Tree',                RID.GRASSLAND,      ['sword3'], 'On the starting screen, under a tree cuttable with the Magic Sword'), #1x37
     LocInfo('Boomerang Under Rock',            RID.GRASSLAND,      ['bomb'], 'Northwest of start, make the screen symmetrical'), #1x35
@@ -67,9 +68,9 @@ location_table = [
     LocInfo('L1 KillAll: Bomb Ammo',           RID.LEVEL_1_R,      ['kill','wpn'], 'Kill all enemies in a room'), #4x77
     LocInfo('L1: Bottle',                      RID.LEVEL_1_R,      ['bomb','wpn'], 'Collect hidden item'), #4x67
     LocInfo('L1 KillAll: Quiver',              RID.LEVEL_1_R,      ['kill','wpn'], 'Kill all enemies in a room'), #4x78
-    LocInfo('L1 KillAll: Boss Key',            RID.LEVEL_1_R,      ['kill','bkey','wpn_restr','no_arrow','no_fire','no_wand'], 'Kill all enemies in a room'), #4x68
-    LocInfo('L1 Boss Reward',                  RID.LEVEL_1_B,      ['wpn_restr','no_fire'], 'Kill the L1 Boss'), #4x64
-    LocInfo('L1 Dungeon Reward',               RID.LEVEL_1_B,      ['wpn_restr','no_fire'], 'Beat L1'), #4x65
+    LocInfo('L1 KillAll: Boss Key',            RID.LEVEL_1_R,      ['kill','bkey','wpn_bomb_melee'], 'Kill all enemies in a room'), #4x68
+    LocInfo('L1 Boss Reward',                  RID.LEVEL_1_B,      ['wpn_no_fire'], 'Kill the L1 Boss'), #4x64
+    LocInfo('L1 Dungeon Reward',               RID.LEVEL_1_B,      ['wpn_no_fire'], 'Beat L1'), #4x65
     LocInfo('L2 KillAll: Map',                 RID.LEVEL_2,        ['kill','wpn','map'], 'Kill all enemies left of start of the level'), #4x7C
     LocInfo('L2 KillAll: Compass',             RID.LEVEL_2,        ['kill','wpn','compass'], 'Kill all enemies right of start of the level'), #4x7#
     LocInfo('L2 KillAll: Sword',               RID.LEVEL_2,        ['kill','wpn'], 'Kill all enemies in the middle-right of the level'), #4x6F
@@ -107,14 +108,14 @@ location_table = [
     LocInfo('L5 KillAll: Bottle',              RID.LEVEL_5_U,      ['kill','wpn'], 'Kill all enemies in a room'), #5x7B
     LocInfo('L5: Bracelet 2',                  RID.LEVEL_5_U,      ['heavy','wpn'], 'Kill the golden Goriya and push the heavy block to access the bottom room'), #5x7D
     LocInfo('L5 KillAll: Magic Ring',          RID.LEVEL_5_U,      ['kill','wpn'], 'Kill all enemies in a room'), #5x5D
-    LocInfo('L5 KillAll: Boss Key',            RID.LEVEL_5_U,      ['kill','bkey','heavy2','wpn_restr','no_arrow','no_fire','no_wand'], 'Push the very heavy heavy block to access the room, and kill the guards'), #5x4C
-    LocInfo('L5 Boss Reward',                  RID.LEVEL_5_B,      ['wpn_restr','no_fire'], 'Kill the L5 Boss'), #5x5B
-    LocInfo('L5 Dungeon Reward',               RID.LEVEL_5_B,      ['wpn_restr','no_fire'], 'Beat L5'), #5x5A
+    LocInfo('L5 KillAll: Boss Key',            RID.LEVEL_5_U,      ['kill','bkey','heavy2','wpn_bomb_melee'], 'Push the very heavy heavy block to access the room, and kill the guards'), #5x4C
+    LocInfo('L5 Boss Reward',                  RID.LEVEL_5_B,      ['wpn_no_fire'], 'Kill the L5 Boss'), #5x5B
+    LocInfo('L5 Dungeon Reward',               RID.LEVEL_5_B,      ['wpn_no_fire'], 'Beat L5'), #5x5A
     LocInfo('L6: Compass',                     RID.LEVEL_6_1F_F,   ['compass'], 'Collect loose item in first room'), #6x56
     LocInfo('L6 KillAll: Map',                 RID.LEVEL_6_1F_F,   ['map'], 'Collect loose item in first room'), #6x46
     LocInfo('L6: Hidden Money',                RID.LEVEL_6_1F_F,   ['bomb','wpn'], 'Bomb the wall'), #6x55
     LocInfo('L6 KillAll: Bottle',              RID.LEVEL_6_1F_F,   ['kill','wpn'], 'Kill all golden goriyas in a room'), #6x47
-    LocInfo('L6 KillAll: Money 1',             RID.LEVEL_6_1F_F,   ['kill','wpn_restr','no_arrow','no_fire','no_wand'], 'Kill all red darknuts in a room'), #6x57
+    LocInfo('L6 KillAll: Money 1',             RID.LEVEL_6_1F_F,   ['kill','wpn_bomb_melee'], 'Kill all red darknuts in a room'), #6x57
     LocInfo('L6: Dragon Miniboss',             RID.LEVEL_6_1F_F,   ['melee'], 'Kill the 6-headed dragon'), #6x58
     LocInfo('L6 KillAll: Wand',                RID.LEVEL_6_1F_F,   ['kill','melee'], 'Kill all golden goriyas in a room'), #6x48
     LocInfo('L6 KillAll: Charge Ring',         RID.LEVEL_6_1F_B,   ['kill','wpn'], 'Kill all leevers in a room'), #6x18
@@ -133,13 +134,31 @@ location_table = [
     LocInfo('L7 KillAll: Map',                 RID.LEVEL_7,        ['kill','wpn','map'], 'Kill gibdos on the right'), #5x58
     LocInfo('L7 KillAll: Wallet',              RID.LEVEL_7_O,      ['kill','bomb'], 'Kill dodongos on the left'), #5x36
     LocInfo('L7 KillAll: Coupon',              RID.LEVEL_7_O,      ['kill','bomb'], 'Kill dodongos on the right'), #5x38
-    LocInfo('L7 KillAll: Shield',              RID.LEVEL_7_O,      ['kill','wpn_restr','no_arrow','no_fire','no_wand'], 'Kill wizzrobes on the left'), #5x15
-    LocInfo('L7 KillAll: LKey 1',              RID.LEVEL_7_O,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','key'], 'Kill wizzrobes on the right'), #5x19
-    LocInfo('L7 KillAll: LKey 2',              RID.LEVEL_7_C,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','key'], 'Kill wizzrobes in the left-center'), #5x16
-    LocInfo('L7 KillAll: Boss Key',            RID.LEVEL_7_C,      ['kill','wpn_restr','no_arrow','no_fire','no_wand','bkey'], 'Kill wizzrobes in the right-center'), #5x18
+    LocInfo('L7 KillAll: Shield',              RID.LEVEL_7_O,      ['kill','wpn_bomb_melee'], 'Kill wizzrobes on the left'), #5x15
+    LocInfo('L7 KillAll: LKey 1',              RID.LEVEL_7_O,      ['kill','wpn_bomb_melee','key'], 'Kill wizzrobes on the right'), #5x19
+    LocInfo('L7 KillAll: LKey 2',              RID.LEVEL_7_C,      ['kill','wpn_bomb_melee','key'], 'Kill wizzrobes in the left-center'), #5x16
+    LocInfo('L7 KillAll: Boss Key',            RID.LEVEL_7_C,      ['kill','wpn_bomb_melee','bkey'], 'Kill wizzrobes in the right-center'), #5x18
     LocInfo('L7 KillAll: Money',               RID.LEVEL_7_C,      ['kill','wpn'], 'Kill purple leevers before the boss'), #5x08
     LocInfo('L7 Boss Reward',                  RID.LEVEL_7_B,      ['shield3'], 'Kill the L7 Boss'), #5x07
     LocInfo('L7 Dungeon Reward',               RID.LEVEL_7_B,      ['shield3'], 'Beat L7'), #5x06
+    LocInfo('L8 KillAll: Map',                 RID.LEVEL_8,        ['kill','wpn','map'], 'Kill the Leevers on the left'), #6x6A
+    LocInfo('L8 KillAll: Compass',             RID.LEVEL_8,        ['kill','wpn','compass'], 'Kill the Leevers on the right'), #6x6E
+    LocInfo('L8 KillAll: LKey 1',              RID.LEVEL_8,        ['kill','wpn_bomb_melee','key'], 'Kill the Wizzrobes left of start'), #6x7B
+    LocInfo('L8 KillAll: LKey 2',              RID.LEVEL_8,        ['kill','wpn_bomb_melee','key'], 'Kill the Wizzrobes right of start'), #6x7D
+    LocInfo('L8 KillAll: LKey 3',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x4B
+    LocInfo('L8 KillAll: LKey 4',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x4D
+    LocInfo('L8 KillAll: LKey 5',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x3B
+    LocInfo('L8 KillAll: LKey 6',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x3D
+    LocInfo('L8 KillAll: LKey 7',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x1A
+    LocInfo('L8 KillAll: LKey 8',              RID.LEVEL_8,        ['kill','wpn','key'], 'Kill the Blue Lynels'), #6x1E
+    LocInfo('L8: 12-Headed Dragon',            RID.LEVEL_8_G,      ['melee'], 'Kill the 12-Headed Dragon miniboss'), #6x3C
+    LocInfo('L8: Plant Bosses',                RID.LEVEL_8_G,      ['wpn'], 'Kill the 4 plant minibosses'), #6x2C
+    LocInfo('L8: Spider Bosses',               RID.LEVEL_8_U,      ['arrow'], 'Kill the 3 spider minibosses'), #6x1C
+    LocInfo('L8: Boss Key',                    RID.LEVEL_8_U,      ['bkey'], 'Spend the 8 small keys'), #6x1B
+    LocInfo('L8: Hurricane Spin',              RID.LEVEL_8_U,      ['wpn_bomb_melee'], 'Clear the 9 wizzrobe room'), #6x1D
+    LocInfo('L8: Silver Arrows',               RID.LEVEL_8_U,      [], 'On the ground before the boss'), #6x0D
+    LocInfo('L8 Boss Reward',                  RID.LEVEL_8_B,      ['arrow'], 'Kill the L8 Boss'), #6x0C
+    LocInfo('L8 Dungeon Reward',               RID.LEVEL_8_B,      ['arrow'], 'Beat L8'), #6x0B
     LocInfo('L9: Tunic Path',                  RID.LEVEL_9,        [], 'Item after the gold tunic gauntlet'), #3x4A
     ]
 location_name_to_id = {loc.name: num for num,loc in enumerate(location_table,base_number_id)}

@@ -31,6 +31,7 @@ item_table = [
     ItemInfo('Progressive Bracelet', 'Increase pushing strength', ItemClassification.progression),
     ItemInfo('Progressive Hookshot', 'Hook to far targets', ItemClassification.progression),
     ItemInfo('Progressive Traction', 'Slip less on ice', ItemClassification.useful),
+    ItemInfo('Progressive Arrows', 'Stronger arrows to shoot', ItemClassification.progression),
     ItemInfo('Bow', 'The Bow, to shoot arrows with', ItemClassification.progression),
     ItemInfo('Wand', 'The Wand, to shoot magic with (and fire with the Magic Book)', ItemClassification.progression),
     ItemInfo('Magic Book', 'The Magic Book, powers up the Wand', ItemClassification.progression),
@@ -45,6 +46,7 @@ item_table = [
     ItemInfo('Cheese', 'Trade quest item', ItemClassification.progression),
     ItemInfo('Scroll: Cross Beams', 'Shoot beams when spinning', ItemClassification.useful),
     ItemInfo('Scroll: Peril Beam', 'Shoot beams at low health', ItemClassification.useful),
+    ItemInfo('Scroll: Hurricane Spin', 'Charge further to unleash a hurricane spin attack', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
     ItemInfo('Magic Container', 'Extra max magic', ItemClassification.progression),
     ItemInfo('Half Magic', 'Reduced magic cost', ItemClassification.useful),
@@ -54,6 +56,7 @@ item_table = [
     ItemInfo('Potion (Green)', 'Red Potion (and the ability to buy more)', ItemClassification.progression),
     ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
     ItemInfo('Bomb Ammo x30', '30 Bombs', ItemClassification.filler),
+    ItemInfo('Super Bomb Ammo x1', 'A single super bomb', ItemClassification.filler),
     ItemInfo('Rupees x50', '50 Rupees', ItemClassification.filler),
     ItemInfo('Rupees x100', '100 Rupees', ItemClassification.filler),
     ItemInfo('Rupees x500', '500 Rupees', ItemClassification.filler),
@@ -64,7 +67,7 @@ item_table = [
     ItemInfo('Compass 5', 'Dungeon Compass for Level 5', ItemClassification.filler),
     ItemInfo('Compass 6', 'Dungeon Compass for Level 6', ItemClassification.filler),
     ItemInfo('Compass 7', 'Dungeon Compass for Level 7', ItemClassification.filler),
-    #ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
+    ItemInfo('Compass 8', 'Dungeon Compass for Level 8', ItemClassification.filler),
     ItemInfo('Map 1', 'Dungeon Map for Level 1', ItemClassification.filler),
     ItemInfo('Map 2', 'Dungeon Map for Level 2', ItemClassification.filler),
     ItemInfo('Map 3', 'Dungeon Map for Level 3', ItemClassification.filler),
@@ -72,7 +75,7 @@ item_table = [
     ItemInfo('Map 5', 'Dungeon Map for Level 5', ItemClassification.filler),
     ItemInfo('Map 6', 'Dungeon Map for Level 6', ItemClassification.filler),
     ItemInfo('Map 7', 'Dungeon Map for Level 7', ItemClassification.filler),
-    #ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
+    ItemInfo('Map 8', 'Dungeon Map for Level 8', ItemClassification.filler),
     ItemInfo('LKey 1', 'Level Key for Level 1', ItemClassification.progression),
     ItemInfo('LKey 2', 'Level Key for Level 2', ItemClassification.progression),
     ItemInfo('LKey 3', 'Level Key for Level 3', ItemClassification.progression),
@@ -80,7 +83,7 @@ item_table = [
     ItemInfo('LKey 5', 'Level Key for Level 5', ItemClassification.progression),
     ItemInfo('LKey 6', 'Level Key for Level 6', ItemClassification.progression),
     ItemInfo('LKey 7', 'Level Key for Level 7', ItemClassification.progression),
-    #ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
+    ItemInfo('LKey 8', 'Level Key for Level 8', ItemClassification.progression),
     ItemInfo('Boss Key 1', 'Boss Key for Level 1', ItemClassification.progression),
     ItemInfo('Boss Key 2', 'Boss Key for Level 2', ItemClassification.progression),
     ItemInfo('Boss Key 3', 'Boss Key for Level 3', ItemClassification.progression),
@@ -88,10 +91,10 @@ item_table = [
     ItemInfo('Boss Key 5', 'Boss Key for Level 5', ItemClassification.progression),
     ItemInfo('Boss Key 6', 'Boss Key for Level 6', ItemClassification.progression),
     ItemInfo('Boss Key 7', 'Boss Key for Level 7', ItemClassification.progression),
-    #ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
+    ItemInfo('Boss Key 8', 'Boss Key for Level 8', ItemClassification.progression),
     ]
 item_name_to_id = {name: num for num,(name,_desc,_) in enumerate(item_table,base_number_id)}
-key_counts = [0,1,1,1,0,1,2,2,0,0] #levels 0-9
+key_counts = [0,1,1,1,0,1,2,2,8,0] #levels 0-9
 
 def include_item_name(name: str, options: LGA3_Options) -> int:
     match name:
@@ -100,9 +103,9 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         
         # Ammo / Collectables
         case 'Triforce Fragment':
-            return 7
+            return 8
         case 'Heart Container':
-            return 12
+            return 13
         case 'Magic Container':
             return 7
         case 'Bomb Ammo x4':
@@ -115,13 +118,16 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
             return 1
         case 'Rupees x50':
             return 2
-            
+        
+        #!TODO refillable shops for these
         case 'Potion (Red)':
             return 0
         case 'Potion (Blue)':
             return 0
         case 'Potion (Green)':
             return 1
+        case 'Super Bomb Ammo x1':
+            return 0
         
         # 'Progressive' items
         case 'Progressive Sword': #SwordSanity settings
@@ -145,17 +151,19 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Bomb Bag':
             return 3
         case 'Progressive Quiver':
-            return 2 #!TODO more
+            return 3
         case 'Progressive Shield':
             return 3
         case 'Progressive Coupon':
-            return 2 #!TODO more
+            return 3
         case 'Progressive Bracelet':
             return 2
         case 'Progressive Hookshot':
             return 2
         case 'Progressive Traction':
-            return 1
+            return 2
+        case 'Progressive Arrows':
+            return 2
         
         case 'Progressive Life Ring':
             return 2 #!TODO more

@@ -39,6 +39,9 @@ class RID(StrEnum):
     LEVEL_7_C = 'Level 7 Center' #post-key
     LEVEL_7_B = 'Level 7 Boss' #post-2key+bkey
     LEVEL_8 = 'Level 8'
+    LEVEL_8_G = 'Level 8 Gauntlet' #post-bomb+melee
+    LEVEL_8_U = 'Level 8 Upper' #post-arrow
+    LEVEL_8_B = 'Level 8 Boss' #post-bkey
     LEVEL_9 = 'Level 9'
 
 
