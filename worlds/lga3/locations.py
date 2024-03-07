@@ -52,6 +52,7 @@ location_table = [
     LocInfo('KillAll: Cross Beams',            RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x07
     LocInfo('KillAll: MagicC',                 RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x06
     LocInfo('Hidden: MagicC',                  RID.DESERT,         ['bomb'], 'Bomb the mountain wall'), #1x05
+    LocInfo('Hidden: Half Magic',              RID.GRAVEYARD,      ['hidden'], 'Push a central grave'), #1x2E
     LocInfo('L1: Compass',                     RID.LEVEL_1,        ['compass'], 'In the first room'), #4x73
     LocInfo('L1 KillAll: Map',                 RID.LEVEL_1,        ['kill','wpn','map'], 'Kill all enemies in the upper-left room'), #4x62
     LocInfo('L1 KillAll: LKey',                RID.LEVEL_1,        ['kill','wpn','key'], 'Kill all enemies in the upper room'), #4x63
@@ -118,6 +119,10 @@ location_table = [
     LocInfo('L6 KillAll: Quiver',              RID.LEVEL_6_2F_B,   ['kill','melee'], 'Kill the 3-headed dragon'), #6x23
     LocInfo('L6 Boss Reward',                  RID.LEVEL_6_B,      ['arrow'], 'Kill the L6 Boss'), #6x32
     LocInfo('L6 Dungeon Reward',               RID.LEVEL_6_B,      ['arrow'], 'Beat L6'), #6x30
+    LocInfo('Well: Bomb Bag',                  RID.THE_WELL,       [], 'Give 5 bombs to a gibdo'), #5x72
+    LocInfo('Well: Lens',                      RID.THE_WELL,       [], 'Give 40 bombs and cheese to gibdos'), #5x74
+    LocInfo('Well: Green Potion',              RID.THE_WELL,       ['kill','wpn'], 'Give 10 arrows and 20 rupees to gibdos'), #5x62
+    LocInfo('Well: Cheese',                    RID.THE_WELL,       [], 'Give 10 arrows, 50 rupees, and all 3 potions to gibdos'), #5x52
     LocInfo('L9: Tunic Path',                  RID.LEVEL_9,        [], 'Item after the gold tunic gauntlet'), #3x4A
     ]
 location_name_to_id = {loc.name: num for num,loc in enumerate(location_table,base_number_id)}

@@ -33,6 +33,7 @@ class RID(StrEnum):
     LEVEL_6_2F_F = 'Level 6 2F Front' #post-1-key + wpn
     LEVEL_6_2F_B = 'Level 6 2F Back' #post-2-key + melee
     LEVEL_6_B = 'Level 6 Boss' #post-bkey
+    THE_WELL = 'Bottom Of The Well'
     LEVEL_7 = 'Level 7'
     LEVEL_8 = 'Level 8'
     LEVEL_9 = 'Level 9'

@@ -39,10 +39,16 @@ item_table = [
     ItemInfo('Divine Escape', 'Returns you to the start of the dungeon / overworld', ItemClassification.progression),
     ItemInfo('Flippers', 'Lets you swim/dive', ItemClassification.progression),
     ItemInfo('Ocarina', 'Lets you fast-travel', ItemClassification.useful),
+    ItemInfo('Lens of Truth', 'See secrets and hidden things', ItemClassification.progression),
+    ItemInfo('Cheese', 'Trade quest item', ItemClassification.progression),
     ItemInfo('Scroll: Cross Beams', 'Shoot beams when spinning', ItemClassification.useful),
     ItemInfo('Heart Container', 'Extra max life', ItemClassification.useful),
     ItemInfo('Magic Container', 'Extra max magic', ItemClassification.progression),
+    ItemInfo('Half Magic', 'Reduced magic cost', ItemClassification.useful),
     ItemInfo('Triforce Fragment', 'MacGuffin', ItemClassification.progression),
+    ItemInfo('Potion (Red)', 'Red Potion (and the ability to buy more)', ItemClassification.progression),
+    ItemInfo('Potion (Blue)', 'Red Potion (and the ability to buy more)', ItemClassification.progression),
+    ItemInfo('Potion (Green)', 'Red Potion (and the ability to buy more)', ItemClassification.progression),
     ItemInfo('Bomb Ammo x4', '4 Bombs', ItemClassification.filler),
     ItemInfo('Bomb Ammo x30', '30 Bombs', ItemClassification.filler),
     ItemInfo('Rupees x500', '500 Rupees', ItemClassification.filler),
@@ -103,6 +109,13 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
             return 1
         case 'Rupees x50':
             return 2
+            
+        case 'Potion (Red)':
+            return 0
+        case 'Potion (Blue)':
+            return 0
+        case 'Potion (Green)':
+            return 1
         
         # 'Progressive' items
         case 'Progressive Sword': #SwordSanity settings
@@ -124,7 +137,7 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Progressive Boomerang':
             return 3
         case 'Progressive Bomb Bag':
-            return 2 #!TODO more
+            return 3
         case 'Progressive Quiver':
             return 2 #!TODO more
         case 'Progressive Shield':

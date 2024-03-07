@@ -10,6 +10,11 @@ def set_rules(world: World) -> None:
     player = world.player
     options = world.options
     
+    def _set_rule(name: str, rule):
+        set_rule(multiworld.get_location(name,player), rule)
+    def _add_rule(name: str, rule):
+        add_rule(multiworld.get_location(name,player), rule)
+    
     bomb_rule = lambda state: state.has('Progressive Bomb Bag', player)
     jump_1_rule = lambda state: state.has('Progressive Jump', player)
     jump_2_rule = lambda state: state.has('Progressive Jump', player, 2)
@@ -18,7 +23,7 @@ def set_rules(world: World) -> None:
     candle_2_rule = lambda state: state.has('Progressive Lantern',player,2)
     distant_fire_rule = lambda state: state.has('Divine Fire',player) or state.has('Progressive Boomerang',player,3) or state.has_all(['Wand','Magic Book'],player)
     wand_rule = lambda state: state.has('Wand',player)
-    rock_rule = lambda state: state.has('Magic Rock', player)
+    magic_rock_rule = lambda state: state.has('Magic Rock', player)
     tunic_1_rule = lambda state: state.has('Progressive Tunic',player,1)
     tunic_2_rule = lambda state: state.has('Progressive Tunic',player,2)
     tunic_3_rule = lambda state: state.has('Progressive Tunic',player,3)
@@ -35,6 +40,8 @@ def set_rules(world: World) -> None:
     heavy_2_rule = lambda state: state.has('Progressive Bracelet',player,2)
     flipper_rule = lambda state: state.has('Flippers',player)
     hook_rule = lambda state: state.has('Progressive Hookshot',player)
+    lens_rule = lambda state: state.has('Lens of Truth',player)
+    hidden_rule = lambda state: lens_rule(state) or magic_rock_rule(state)
     
     key_rule = lambda state,lvl,count=1: state.has(f'LKey {lvl}', player, count)
     bkey_rule = lambda state,lvl: state.has(f'Boss Key {lvl}', player)
@@ -50,16 +57,13 @@ def set_rules(world: World) -> None:
     weapon_rule = lambda state: bomb_rule(state) or arrow_rule(state) or sword_1_rule(state) or hammer_rule(state)
     
     def make_wpn_rule(tags: List[str]):
-        if 'wpn_restr' in tags:
-            used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
-            def wpn_restr_rule(state):
-                for rule in used_wpn_rules:
-                    if rule(state):
-                        return True
-                return False
-            return wpn_restr_rule
-        else:
-            return weapon_rule
+        used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
+        def wpn_restr_rule(state):
+            for rule in used_wpn_rules:
+                if rule(state):
+                    return True
+            return False
+        return wpn_restr_rule
     
     if True: # Region connecting
         world.get_region(RID.MENU).connect(connecting_region = world.get_region(RID.GRASSLAND))
@@ -121,87 +125,92 @@ def set_rules(world: World) -> None:
         world.get_region(RID.LEVEL_6_2F_F).connect(connecting_region = world.get_region(RID.LEVEL_6_1F_L),
             rule = lambda state: key_rule(state,6,2) and melee_rule(state))
         
+        world.get_region(RID.GRAVEYARD).connect(connecting_region = world.get_region(RID.THE_WELL))
         world.get_region(RID.GRAVEYARD).connect(connecting_region = world.get_region(RID.LEVEL_7),
-            rule = lambda state: True) # Needs Lens
+            rule = lens_rule)
         world.get_region(RID.ICE).connect(connecting_region = world.get_region(RID.LEVEL_8),
-            rule = lambda state: True) # Needs Lens
+            rule = lens_rule)
         
         
         tri_count = include_item_name('Triforce Fragment', options)
         world.get_region(RID.DESERT).connect(connecting_region = world.get_region(RID.LEVEL_9),
             rule = lambda state: state.has('Triforce Fragment', player, tri_count) and bomb_rule(state))
     
-    #_set_rule = lambda name, rule: set_rule(multiworld.get_location(name, player), rule)
+    locs_list: List[LGA3_Location] = multiworld.get_locations(player)
     
-    locs_list: List[(LGA3_Location,LocInfo)] = []
-    for locinfo in location_table:
-        locs_list.append((multiworld.get_location(locinfo.name,player),locinfo))
-    
-    for loc,locinfo in locs_list:
-        need_wpn = False
-        if options.magic_rock_for_kill_all:
-            if 'kill' in locinfo.tags:
-                add_rule(loc, rock_rule)
-        if 'wpn' in locinfo.tags or 'wpn_restr' in locinfo.tags:
-            add_rule(loc, make_wpn_rule(locinfo.tags))
+    for loc in locs_list: # Apply common rules via tags
+        if loc.info is None:
+            continue
+        tags = loc.info.tags
         
-        if 'melee' in locinfo.tags:
+        if options.magic_rock_for_kill_all:
+            if 'kill' in tags:
+                add_rule(loc, magic_rock_rule)
+        if 'wpn_restr' in tags:
+            add_rule(loc, make_wpn_rule(tags))
+        elif 'wpn' in tags:
+            add_rule(loc, weapon_rule)
+        
+        if 'melee' in tags:
             add_rule(loc, melee_rule)
         
-        if 'bomb' in locinfo.tags:
+        if 'bomb' in tags:
             add_rule(loc, bomb_rule)
         
-        if 'arrow2' in locinfo.tags:
+        if 'arrow2' in tags:
             add_rule(loc, arrow_2_rule)
-        elif 'arrow' in locinfo.tags:
+        elif 'arrow' in tags:
             add_rule(loc, arrow_rule)
         
-        if 'jump2' in locinfo.tags:
+        if 'jump2' in tags:
             add_rule(loc, jump_2_rule)
-        elif 'jump' in locinfo.tags:
+        elif 'jump' in tags:
             add_rule(loc, jump_1_rule)
         
-        if 'sword4' in locinfo.tags:
+        if 'sword4' in tags:
             add_rule(loc, sword_4_rule)
-        elif 'sword3' in locinfo.tags:
+        elif 'sword3' in tags:
             add_rule(loc, sword_3_rule)
-        elif 'sword2' in locinfo.tags:
+        elif 'sword2' in tags:
             add_rule(loc, sword_2_rule)
-        elif 'sword' in locinfo.tags:
+        elif 'sword' in tags:
             add_rule(loc, sword_1_rule)
         
-        if 'tough_fight' in locinfo.tags:
+        if 'tough_fight' in tags:
             add_rule(loc, tough_fight_rule)
         
-        if 'shop' in locinfo.tags:
-            if 'pay_1_1' in locinfo.tags:
+        if 'hidden' in tags:
+            add_rule(loc, hidden_rule)
+        
+        if 'shop' in tags:
+            if 'pay_1_1' in tags:
                 add_rule(loc, pay_1_1)
-            elif 'pay_1_2' in locinfo.tags:
+            elif 'pay_1_2' in tags:
                 add_rule(loc, pay_1_2)
-            elif 'pay_1_3' in locinfo.tags:
+            elif 'pay_1_3' in tags:
                 add_rule(loc, pay_1_3)
         
-        if 'heavy2' in locinfo.tags:
+        if 'heavy2' in tags:
             add_rule(loc, heavy_2_rule)
-        elif 'heavy' in locinfo.tags:
+        elif 'heavy' in tags:
             add_rule(loc, heavy_1_rule)
         
-        if 'key' in locinfo.tags:
+        if 'key' in tags:
             if options.key_sanity < 2:
                 assert loc.name[0] == 'L' and loc.name[1].isnumeric(), 'Key loc name must start in "L#" where # = 1-9'
                 itmname = 'LKey ' + loc.name[1]
                 loc.place_locked_item(create_item(itmname, player))
-        elif 'bkey' in locinfo.tags:
+        elif 'bkey' in tags:
             if options.key_sanity < 1:
                 assert loc.name[0] == 'L' and loc.name[1].isnumeric(), 'BKey loc name must start in "L#" where # = 1-9'
                 itmname = 'Boss Key ' + loc.name[1]
                 loc.place_locked_item(create_item(itmname, player))
-        elif 'map' in locinfo.tags:
+        elif 'map' in tags:
             if (options.dungeon_item_sanity & 0b01) == 0:
                 assert loc.name[0] == 'L' and loc.name[1].isnumeric(), 'Map loc name must start in "L#" where # = 1-9'
                 itmname = 'Map ' + loc.name[1]
                 loc.place_locked_item(create_item(itmname, player))
-        elif 'compass' in locinfo.tags:
+        elif 'compass' in tags:
             if (options.dungeon_item_sanity & 0b10) == 0:
                 assert loc.name[0] == 'L' and loc.name[1].isnumeric(), 'Compass loc name must start in "L#" where # = 1-9'
                 itmname = 'Compass ' + loc.name[1]
@@ -211,7 +220,15 @@ def set_rules(world: World) -> None:
             loc.place_locked_item(create_item('Progressive Sword', player))
         if options.sword_sanity == 0 and loc.name in ['L2 KillAll: Sword','Sword Under Block','Sword Under Tree']:
             loc.place_locked_item(create_item('Progressive Sword', player))
-        
+    
+    # Apply uncommon rules directly
+    
+    _set_rule('Well: Bomb Bag', bomb_rule)
+    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,2) and state.has('Cheese',player))
+    _set_rule('Well: Green Potion', lambda state: state.has('Progressive Quiver',player))
+    _set_rule('Well: Cheese', lambda state: state.has('Progressive Quiver',player) and state.has('Progressive Bottle',player)) #!TODO potion logic
+    
+    # Set up the victory condition event
     ganon_loc = multiworld.get_location('Ganon', player)
     set_rule(ganon_loc, lambda state: sword_2_rule(state) and arrow_rule(state)) #!TODO arrow_2_rule
     ganon_loc.place_locked_item(create_event_item('Victory', player))
