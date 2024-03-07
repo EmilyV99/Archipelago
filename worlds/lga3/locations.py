@@ -34,7 +34,9 @@ location_table = [
     LocInfo('Kak Red Shop 2',                  RID.KAKARIKO,       ['shop'], '2nd item in red-roofed shop'), #3x00
     LocInfo('Kak Red Shop 3',                  RID.KAKARIKO,       ['shop'], '3rd item in red-roofed shop'), #3x00
     LocInfo('Kak Red Shop 4',                  RID.KAKARIKO,       ['shop','pay_1_2'], '4th item in red-roofed shop'), #3x00
-    #!TODO Kak Potion Shop? How to handle re-buying potions? Leaving Vanilla for now #3x01
+    LocInfo('Kak Potion Shop 1',               RID.KAKARIKO,       ['shop'], '1st item in blue-roofed shop'), #3x01
+    LocInfo('Kak Potion Shop 2',               RID.KAKARIKO,       ['shop'], '2nd item in blue-roofed shop'), #3x01
+    LocInfo('Kak Potion Shop 3',               RID.KAKARIKO,       ['shop','pay_1_2'], '3rd item in blue-roofed shop'), #3x01
     LocInfo('Kak Purple Shop 1',               RID.KAKARIKO,       ['shop','pay_1_1'], '1st item in purple-roofed shop'), #3x02
     LocInfo('Kak Purple Shop 2',               RID.KAKARIKO,       ['shop','pay_1_3'], '2nd item in purple-roofed shop'), #3x02
     LocInfo('Kak Purple Shop 3',               RID.KAKARIKO,       ['shop','pay_1_2'], '3rd item in purple-roofed shop'), #3x02
@@ -49,7 +51,7 @@ location_table = [
     LocInfo('Cave Shop 1',                     RID.MOUNTAIN,       ['shop','pay_1_3'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 2',                     RID.MOUNTAIN,       ['shop'], 'In a lower-left mountain cave'), #2x50
     LocInfo('Cave Shop 3',                     RID.MOUNTAIN,       ['shop','pay_1_2'], 'In a lower-left mountain cave'), #2x50
-    #!TODO Super Bomb shop? How to handle re-buying? #2x70
+    LocInfo('Super Bomb Shop',                 RID.MOUNTAIN,       ['bomb','shop'], 'Sold in a bombable cave in the far bottom-left'), #2x70
     LocInfo('KillAll: Cross Beams',            RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x07
     LocInfo('KillAll: MagicC 4',               RID.DESERT,         ['kill','wpn'], 'Kill all the fire octos on a screen'), #1x06
     LocInfo('Hidden MagicC 2',                 RID.DESERT,         ['bomb'], 'Bomb the mountain wall'), #1x05

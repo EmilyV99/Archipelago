@@ -120,15 +120,15 @@ def include_item_name(name: str, options: LGA3_Options) -> int:
         case 'Rupees x50':
             return 2
         
-        #!TODO refillable shops for these
+        # Refillable Shop Items (can purchase more once receiving 1)
         case 'Potion (Red)':
-            return 0
-        case 'Potion (Blue)':
-            return 0
-        case 'Potion (Green)':
             return 1
+        case 'Potion (Blue)':
+            return 1
+        case 'Potion (Green)':
+            return 2
         case 'Super Bomb Ammo x1':
-            return 0
+            return 1
         
         # 'Progressive' items
         case 'Progressive Sword': #SwordSanity settings
@@ -191,6 +191,8 @@ def create_items(world: World) -> None:
     multiworld = world.multiworld
     player = world.player
     options = world.options
+    
+    #TODO use multiworld.push_precollected() for the 'Starting ...' locations?
     exclude = [item for item in multiworld.precollected_items[player]]
     
     nothing_item = LGA3_Item(item_table[0].name, item_table[0].flag, 0, player)
