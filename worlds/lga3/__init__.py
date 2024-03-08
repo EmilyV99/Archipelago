@@ -1,5 +1,5 @@
 import settings
-import typing
+from typing import Any
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial, MultiWorld
 from worlds.AutoWorld import World, WebWorld
 from .options import LGA3_Options, options_presets
@@ -56,4 +56,11 @@ class LGA3_World(World):
     def generate_output(self, output_directory: str) -> None:
         from Utils import visualize_regions
         visualize_regions(self.get_region(RID.MENU), f"output/lga3_world.puml")
+    
+    def fill_slot_data(self) -> Dict[str, Any]:
+        return {
+            'base_id': base_number_id,
+            'num_items': len(item_table),
+            'num_locs': len(location_table)
+            };
 
