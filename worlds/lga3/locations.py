@@ -98,8 +98,8 @@ location_table = [
     LocInfo('L4: Roc\'s Cape',                 RID.LEVEL_4_F,      ['jump'], 'Collect loose item'), #4x30
     LocInfo('L4: Bomb Bag',                    RID.LEVEL_4,        [], 'Collect loose item'), #4x21
     LocInfo('L4: Boomerang',                   RID.LEVEL_4,        [], 'Collect loose item on the ledge'), #4x33
-    LocInfo('L4: Compass',                     RID.LEVEL_4,        ['kill','wpn','compass'], 'Kill all enemies in the pit'), #4x43
-    LocInfo('L4: Longshot',                    RID.LEVEL_4,        ['kill','wpn'], 'Kill all enemies in the pre-boss room'), #4x24
+    LocInfo('L4 KillAll: Compass',             RID.LEVEL_4,        ['kill','wpn','compass'], 'Kill all enemies in the pit'), #4x43
+    LocInfo('L4 KillAll: Longshot',            RID.LEVEL_4,        ['kill','wpn'], 'Kill all enemies in the pre-boss room'), #4x24
     LocInfo('L4 Boss Reward',                  RID.LEVEL_4,        ['melee'], 'Kill the L4 Boss'), #4x25
     LocInfo('L4 Dungeon Reward',               RID.LEVEL_4,        ['melee'], 'Beat L4'), #4x26
     LocInfo('L5 KillAll: Compass',             RID.LEVEL_5,        ['kill','wpn','compass'], 'Kill all enemies in a room'), #5x6D
