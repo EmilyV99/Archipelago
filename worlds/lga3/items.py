@@ -207,8 +207,8 @@ def create_items(world: World) -> None:
         multiworld.itempool += [itm.copy() for _ in range(count)]
     multiworld.itempool += [nothing_item.copy() for _ in range(junk)]
 def create_item(name: str, player: int) -> LGA3_Item:
-    itemid = item_name_to_id[name]-base_number_id
-    _,desc,flag = item_table[itemid]
+    itemid = item_name_to_id[name]
+    _,desc,flag = item_table[itemid-base_number_id]
     return LGA3_Item(name, flag, itemid, player)
 
 def create_event_item(event: str, player: int) -> LGA3_Item:
