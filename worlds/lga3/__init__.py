@@ -63,4 +63,6 @@ class LGA3_World(World):
             'num_items': len(item_table),
             'num_locs': len(location_table)
             };
+    def get_region(self, region_name: str) -> Region:
+        return self.multiworld.get_region(region_name, self.player)
 

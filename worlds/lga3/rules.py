@@ -45,13 +45,13 @@ def set_rules(world: World) -> None:
     
     jump_1_rule = lambda state: state.has('Progressive Jump',player)
     jump_2_rule = lambda state: state.has('Progressive Jump',player,2)
-    distant_fire_rule = lambda state: state.has('Divine Fire',player) or state.has('Progressive Boomerang',player,3) or state.has_all(['Wand','Magic Book'],player)
+    distant_fire_rule = lambda state: state.has('Progressive Boomerang',player,3) or (magic_grind_rule(state) and (state.has('Divine Fire',player) or state.has_all(['Wand','Magic Book'],player)))
     
     heavy_1_rule = lambda state: state.has('Progressive Bracelet',player)
     heavy_2_rule = lambda state: state.has('Progressive Bracelet',player,2)
     flipper_rule = lambda state: state.has('Flippers',player)
     hook_rule = lambda state: state.has('Progressive Hookshot',player)
-    lens_rule = lambda state: state.has('Lens of Truth',player)
+    lens_rule = lambda state: state.has('Lens of Truth',player) and magic_grind_rule(state)
     hidden_rule = lambda state: lens_rule(state) or magic_rock_rule(state)
     shield_3_rule = lambda state: state.has('Progressive Shield',player,3)
     
@@ -160,12 +160,12 @@ def set_rules(world: World) -> None:
     
     # Apply uncommon rules directly
     _set_rule('Well: Bomb Bag', bomb_rule)
-    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,3) and state.has('Cheese',player))
-    _set_rule('Well: Green Potion', lambda state: state.has('Progressive Quiver',player))
-    _set_rule('Well: Cheese', lambda state: state.has_all(['Progressive Quiver','Progressive Bottle','Red Potion','Green Potion','Blue Potion'],player))
+    _set_rule('Well: Lens', lambda state: state.has('Progressive Bomb Bag',player,3) and grind_rule(state) and state.has('Cheese',player))
+    _set_rule('Well: Green Potion', lambda state: grind_rule(state) and state.has('Progressive Quiver',player))
+    _set_rule('Well: Cheese', lambda state: grind_rule(state) and pay_1_2(state) and state.has_all(['Progressive Quiver','Progressive Bottle','Potion (Red)','Potion (Green)','Potion (Blue)'],player))
     _set_rule('L7 KillAll: Money', lambda state: key_rule(state,7,2))
-    _set_rule('Divine Protection', lambda state: state.has('Divine Fire',player))
-    _set_rule('L9: Magic Path', lambda state: state.has_all(['Divine Fire','Divine Protection','Divine Escape'],player))
+    _set_rule('Divine Protection', lambda state: magic_grind_rule(state) and state.has('Divine Fire',player))
+    _set_rule('L9: Magic Path', lambda state: magic_grind_rule(state) and state.has_all(['Divine Fire','Divine Protection','Divine Escape'],player))
     # Apply common rules via tags
     for loc in locs_list:
         if loc.info is None:
