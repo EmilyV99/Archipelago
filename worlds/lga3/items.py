@@ -20,7 +20,7 @@ item_table = [
     ItemInfo('Progressive Jump', 'A jump upgrade', ItemClassification.progression),
     ItemInfo('Progressive Bomb Bag', 'A bomb capacity upgrade', ItemClassification.progression),
     ItemInfo('Progressive Quiver', 'An arrow capacity upgrade', ItemClassification.progression),
-    ItemInfo('Progressive Magic Ring', 'A magic regen upgrade', ItemClassification.useful),
+    ItemInfo('Progressive Magic Ring', 'A magic regen upgrade', ItemClassification.progression),
     ItemInfo('Progressive Life Ring', 'A life regen upgrade', ItemClassification.useful),
     ItemInfo('Progressive Charge Ring', 'A weapon charge speed upgrade', ItemClassification.useful),
     ItemInfo('Progressive Shield', 'A shield upgrade', ItemClassification.progression),

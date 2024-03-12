@@ -74,7 +74,7 @@ location_table = [
     LocInfo('L1 Boss Reward',                  RID.LEVEL_1_B,      ['wpn_no_fire'], 'Kill the L1 Boss'), #4x64
     LocInfo('L1 Dungeon Reward',               RID.LEVEL_1_B,      ['wpn_no_fire'], 'Beat L1'), #4x65
     LocInfo('L2 KillAll: Map',                 RID.LEVEL_2,        ['kill','wpn','map'], 'Kill all enemies left of start of the level'), #4x7C
-    LocInfo('L2 KillAll: Compass',             RID.LEVEL_2,        ['kill','wpn','compass'], 'Kill all enemies right of start of the level'), #4x7#
+    LocInfo('L2 KillAll: Compass',             RID.LEVEL_2,        ['kill','wpn','compass'], 'Kill all enemies right of start of the level'), #4x7E
     LocInfo('L2 KillAll: Sword',               RID.LEVEL_2,        ['kill','wpn'], 'Kill all enemies in the middle-right of the level'), #4x6F
     LocInfo('L2 KillAll: LKey',                RID.LEVEL_2,        ['kill','wpn','key'], 'Kill all enemies in the bottom-right of the level'), #4x7F
     LocInfo('L2: Bottle',                      RID.LEVEL_2,        [], 'Collect loose item'), #4x4F

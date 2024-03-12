@@ -15,8 +15,10 @@ def set_rules(world: World) -> None:
     def _add_rule(name: str, rule):
         add_rule(multiworld.get_location(name,player), rule)
     
-    bomb_rule = lambda state: state.has('Progressive Bomb Bag',player)
-    arrow_rule = lambda state: state.has('Progressive Quiver',player) and state.has('Bow',player) and state.has('Progressive Arrows',player)
+    grind_rule = lambda state: sword_1_rule(state) or state.has('Progressive Boomerang',player)
+    magic_grind_rule = lambda state: grind_rule(state) or state.has('Progressive Magic Ring',player)
+    bomb_rule = lambda state: state.has('Progressive Bomb Bag',player) and grind_rule(state)
+    arrow_rule = lambda state: state.has('Progressive Quiver',player) and state.has('Bow',player) and state.has('Progressive Arrows',player) and grind_rule(state)
     arrow_2_rule = lambda state: arrow_rule(state) and state.has('Progressive Arrows',player,2)
     candle_2_rule = lambda state: state.has('Progressive Lantern',player,2)
     magic_rock_rule = lambda state: state.has('Magic Rock',player)
@@ -29,9 +31,9 @@ def set_rules(world: World) -> None:
     sword_4_rule = lambda state: state.has('Progressive Sword',player,4)
     hammer_rule = lambda state: state.has('Hammer',player)
     melee_rule = lambda state: sword_1_rule(state) or hammer_rule(state)
-    wand_rule = lambda state: state.has('Wand',player)
+    wand_rule = lambda state: state.has('Wand',player) and magic_grind_rule(state)
     
-    divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2)
+    divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2) and magic_grind_rule(state)
     basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state)
     fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state))
     tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
@@ -59,7 +61,6 @@ def set_rules(world: World) -> None:
     pay_1_1 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player)
     pay_1_2 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player,2)
     pay_1_3 = lambda state: state.has('Progressive Wallet',player) or state.has('Progressive Coupon',player,3)
-    money_rule = lambda state: sword_1_rule(state) or state.has('Progressive Boomerang',player) #can grind money
     
     #def make_wpn_rule(tags: List[str]):
         #used_wpn_rules = [rule for (bantag,rule) in weapon_rules if not bantag in tags]
@@ -217,7 +218,7 @@ def set_rules(world: World) -> None:
             add_rule(loc, hidden_rule)
         
         if 'shop' in tags:
-            add_rule(loc, money_rule)
+            add_rule(loc, grind_rule)
             if 'pay_1_1' in tags:
                 add_rule(loc, pay_1_1)
             elif 'pay_1_2' in tags:
