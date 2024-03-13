@@ -1,6 +1,6 @@
 from enum import StrEnum
 
-base_number_id = 100000
+base_number_id = 103000
 gamename = 'ZQC LGA3 Remastered'
 game_disp_name = 'Link\'s Grand Adventure 3: Remastered'
 
