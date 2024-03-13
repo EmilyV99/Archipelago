@@ -54,8 +54,9 @@ class LGA3_World(World):
         set_rules(self)
         
     def generate_output(self, output_directory: str) -> None:
-        from Utils import visualize_regions
-        visualize_regions(self.get_region(RID.MENU), f"output/lga3_world.puml")
+        #from Utils import visualize_regions
+        #visualize_regions(self.get_region(RID.MENU), f"output/lga3_world.puml")
+        pass
     
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
