@@ -166,6 +166,7 @@ def set_rules(world: World) -> None:
     _set_rule('L7 KillAll: Money', lambda state: key_rule(state,7,2))
     _set_rule('Divine Protection', lambda state: magic_grind_rule(state) and state.has('Divine Fire',player))
     _set_rule('L9: Magic Path', lambda state: magic_grind_rule(state) and state.has_all(['Divine Fire','Divine Protection','Divine Escape'],player))
+    _set_rule('L9: Arrow Path', lambda state: state.has('Progressive Quiver',player,2))
     # Apply common rules via tags
     for loc in locs_list:
         if loc.info is None:
