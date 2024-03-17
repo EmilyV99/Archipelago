@@ -30,12 +30,24 @@ class DungeonItemSanity(Choice):
     option_both = 3
     default = 3
 
+class DeathLinkEnabled(Toggle):
+    """Share deaths with other players?"""
+    display_name = "Death Link"
+class DeathLinkAmnesty(Range):
+    """With Death Link enabled, die this many times without sending a DeathLink"""
+    display_name = "Death Link Amnesty"
+    range_start = 0
+    range_end = 10
+    default = 0
+
 @dataclass
 class LGA3_Options(PerGameCommonOptions):
     sword_sanity: SwordSanity
     key_sanity: KeySanity
     dungeon_item_sanity: DungeonItemSanity
     magic_rock_for_kill_all: MagicRock
+    death_link: DeathLinkEnabled
+    death_link_amnesty: DeathLinkAmnesty
 
 options_presets = {
     "Basic Rando": {
