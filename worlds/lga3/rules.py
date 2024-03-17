@@ -15,7 +15,7 @@ def set_rules(world: World) -> None:
     def _add_rule(name: str, rule):
         add_rule(multiworld.get_location(name,player), rule)
     
-    grind_rule = lambda state: sword_1_rule(state) or state.has('Progressive Boomerang',player)
+    grind_rule = lambda state: sword_1_rule(state) or state.has('Progressive Boomerang',player) or candle_2_rule(state)
     magic_grind_rule = lambda state: grind_rule(state) or state.has('Progressive Magic Ring',player)
     bomb_rule = lambda state: state.has('Progressive Bomb Bag',player) and grind_rule(state)
     arrow_rule = lambda state: state.has('Progressive Quiver',player) and state.has('Bow',player) and state.has('Progressive Arrows',player) and grind_rule(state)
@@ -34,9 +34,9 @@ def set_rules(world: World) -> None:
     wand_rule = lambda state: state.has('Wand',player) and magic_grind_rule(state)
     
     divine_prot_rule = lambda state: state.has('Divine Protection',player) and state.has('Magic Container',player,2) and magic_grind_rule(state)
-    basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state)
-    fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state))
-    tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or (sword_2_rule(state) and (divine_prot_rule(state) or tunic_2_rule(state)))
+    basic_fighter_rule = lambda state: sword_1_rule(state) or arrow_rule(state) or hammer_rule(state)
+    fighter_rule = lambda state: sword_2_rule(state) or (sword_1_rule(state) and arrow_rule(state)) or hammer_rule(state)
+    tough_fight_rule = lambda state: (sword_3_rule(state) and tunic_1_rule(state)) or ((sword_2_rule(state) or hammer_rule(state)) and (divine_prot_rule(state) or tunic_2_rule(state)))
     
     #weapon_rules = [('no_arrow',arrow_rule),('no_bomb',bomb_rule),('no_sword',sword_1_rule),('no_hammer',hammer_rule),('no_fire',candle_2_rule),('no_wand',wand_rule)]
     weapon_nofire_rule = lambda state: bomb_rule(state) or arrow_rule(state) or melee_rule(state) or wand_rule(state)
