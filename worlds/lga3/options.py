@@ -40,6 +40,10 @@ class DeathLinkAmnesty(Range):
     range_end = 10
     default = 0
 
+class EasierGrinding(DefaultOnToggle):
+    """Improve drop rates and drop tables"""
+    display_name = "Easier Grinding"
+
 @dataclass
 class LGA3_Options(PerGameCommonOptions):
     sword_sanity: SwordSanity
@@ -48,6 +52,7 @@ class LGA3_Options(PerGameCommonOptions):
     magic_rock_for_kill_all: MagicRock
     death_link: DeathLinkEnabled
     death_link_amnesty: DeathLinkAmnesty
+    easier_grinding: EasierGrinding
 
 options_presets = {
     "Basic Rando": {
