@@ -44,6 +44,13 @@ class DeathLinkAmnesty(Range):
     range_end = 10
     default = 0
 
+class Goal(Choice):
+    """What is your goal?"""
+    display_name = "Goal"
+    option_ganon = 0
+    option_hundred_percent = 1
+    option_hundred_percent_ganon = 2
+    default = 0
 
 @dataclass
 class LGA3_Options(PerGameCommonOptions):
@@ -54,6 +61,7 @@ class LGA3_Options(PerGameCommonOptions):
     death_link: DeathLinkEnabled
     death_link_amnesty: DeathLinkAmnesty
     easier_grinding: EasierGrinding
+    goal: Goal
 
 options_presets = {
     "Basic Rando": {
@@ -62,6 +70,10 @@ options_presets = {
         "key_sanity":                   0,
         "dungeon_item_sanity":          3,
         "magic_rock_for_kill_all":   True,
+        "easier_grinding":           True,
+        "death_link":               False,
+        "death_link_amnesty":           0,
+        "goal":                         0,
     },
     "Easy Start": {
         "progression_balancing":        0,
@@ -69,6 +81,10 @@ options_presets = {
         "key_sanity":                   0,
         "dungeon_item_sanity":          0,
         "magic_rock_for_kill_all":   True,
+        "easier_grinding":           True,
+        "death_link":               False,
+        "death_link_amnesty":           0,
+        "goal":                         0,
     },
     "Max Rando": {
         "progression_balancing":        0,
@@ -76,5 +92,9 @@ options_presets = {
         "key_sanity":                   0,
         "dungeon_item_sanity":          3,
         "magic_rock_for_kill_all":  False,
+        "easier_grinding":           True,
+        "death_link":               False,
+        "death_link_amnesty":           0,
+        "goal":                         2,
     },
 }

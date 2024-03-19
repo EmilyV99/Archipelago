@@ -6,6 +6,7 @@ game_disp_name = 'Link\'s Grand Adventure 3: Remastered'
 
 class RID(StrEnum):
     MENU = 'Menu'
+    GOAL = 'Goal'
     GRASSLAND = 'Grassland'
     KAKARIKO = 'Kakariko'
     MOUNTAIN = 'Mountain'

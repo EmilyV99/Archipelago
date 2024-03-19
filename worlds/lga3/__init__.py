@@ -65,7 +65,8 @@ class LGA3_World(World):
             'num_locs': len(location_table),
             'death_link': bool(self.options.death_link.value),
             'death_link_amnesty': int(self.options.death_link_amnesty.value),
-            'easier_grinding': bool(self.options.easier_grinding.value)
+            'easier_grinding': bool(self.options.easier_grinding.value),
+            'goal': int(self.options.goal.value)
             };
     def get_region(self, region_name: str) -> Region:
         return self.multiworld.get_region(region_name, self.player)
