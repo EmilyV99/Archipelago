@@ -142,7 +142,7 @@ def set_rules(world: World) -> None:
             rule = lambda state: key_rule(state,7,2) and bkey_rule(state,7))
         
         world.get_region(RID.ICE).connect(connecting_region = world.get_region(RID.LEVEL_8),
-            rule = lens_rule)
+            rule = lambda state: lens_rule(state) and tunic_1_rule(state) and state.has('Progressive Traction',player,2))
         world.get_region(RID.LEVEL_8).connect(connecting_region = world.get_region(RID.LEVEL_8_G),
             rule = lambda state: bomb_rule(state) and melee_rule(state))
         world.get_region(RID.LEVEL_8_G).connect(connecting_region = world.get_region(RID.LEVEL_8_U),
@@ -167,6 +167,7 @@ def set_rules(world: World) -> None:
     _set_rule('Divine Protection', lambda state: magic_grind_rule(state) and state.has('Divine Fire',player))
     _set_rule('L9: Magic Path', lambda state: magic_grind_rule(state) and state.has_all(['Divine Fire','Divine Protection','Divine Escape'],player))
     _set_rule('L9: Arrow Path', lambda state: state.has('Progressive Quiver',player,2))
+    _set_rule('24-Headed Dragon', lambda state: divine_prot_rule(state) and (state.has('Magic Container',player,6) or state.has('Half Magic',player) or state.has('Progressive Magic Ring',player,3)))
     # Apply common rules via tags
     for loc in locs_list:
         if loc.info is None:

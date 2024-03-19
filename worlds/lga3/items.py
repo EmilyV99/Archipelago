@@ -30,7 +30,7 @@ item_table = [
     ItemInfo('Progressive Coupon', 'Decreases shop prices', ItemClassification.progression),
     ItemInfo('Progressive Bracelet', 'Increase pushing strength', ItemClassification.progression),
     ItemInfo('Progressive Hookshot', 'Hook to far targets', ItemClassification.progression),
-    ItemInfo('Progressive Traction', 'Slip less on ice', ItemClassification.useful),
+    ItemInfo('Progressive Traction', 'Slip less on ice', ItemClassification.progression),
     ItemInfo('Progressive Arrows', 'Stronger arrows to shoot', ItemClassification.progression),
     ItemInfo('Bow', 'The Bow, to shoot arrows with', ItemClassification.progression),
     ItemInfo('Wand', 'The Wand, to shoot magic with (and fire with the Magic Book)', ItemClassification.progression),
