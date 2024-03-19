@@ -10,10 +10,6 @@ class SwordSanity(Choice):
     option_rando_all = 2
     default = 2
 
-class MagicRock(DefaultOnToggle):
-    """Require the 'Magic Rock' logically for kill-all-enemies rooms?"""
-    display_name = "Magic Rock for Kill All"
-
 class KeySanity(Choice):
     """Randomize keys?"""
     display_name = "KeySanity"
@@ -30,6 +26,14 @@ class DungeonItemSanity(Choice):
     option_both = 3
     default = 3
 
+class MagicRock(DefaultOnToggle):
+    """Require the 'Magic Rock' logically for kill-all-enemies rooms?"""
+    display_name = "Magic Rock for Kill All"
+
+class EasierGrinding(DefaultOnToggle):
+    """Improve loot tables and drop rates to decrease grind"""
+    display_name = "Easier Grinding"
+
 class DeathLinkEnabled(Toggle):
     """Share deaths with other players?"""
     display_name = "Death Link"
@@ -40,9 +44,6 @@ class DeathLinkAmnesty(Range):
     range_end = 10
     default = 0
 
-class EasierGrinding(DefaultOnToggle):
-    """Improve drop rates and drop tables"""
-    display_name = "Easier Grinding"
 
 @dataclass
 class LGA3_Options(PerGameCommonOptions):
