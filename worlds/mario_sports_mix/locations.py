@@ -8,12 +8,14 @@ from .options import GoalCondition
 if TYPE_CHECKING:
     from . import MSMWorld
 
+
 class MSMLocation(Location):
     game = "Mario Sports Mix"
 
 # class LocationData(str, int):
 #     name: str
 #     code: Optional[int]
+
 
 def create_all_locations(world: "MSMWorld") -> None:
     create_regular_locations(world)
@@ -391,8 +393,10 @@ LOCATION_NAME_TO_ID = {
 
 }
 
+
 def get_location_names_with_ids(location_names: list[str]) -> dict[str, int | None]:
     return {location_name: LOCATION_NAME_TO_ID[location_name] for location_name in location_names}
+
 
 def create_regular_locations(world: MSMWorld) -> None:
     main_menu = world.get_region("Main Menu")
@@ -782,9 +786,8 @@ def create_regular_locations(world: MSMWorld) -> None:
 
 def create_events(world: "MSMWorld") -> None:
     if world.options.goal_condition == GoalCondition.option_defeat_behemoth:
-        behemoth_boss = world.get_region("Behemoth Boss Battle")
-        behemoth_boss.add_event(
-            "Defeated Behemoth!", "Victory!", location_type=MSMLocation, item_type=items.MSMItem
+        world.get_region("Behemoth Boss Battle").add_event(
+            "Defeated Behemoth!", "Victory", location_type=MSMLocation, item_type=items.MSMItem
         )
 
     if world.options.goal_condition == GoalCondition.option_defeat_behemoth_king:
@@ -792,13 +795,10 @@ def create_events(world: "MSMWorld") -> None:
         # normal_behemoth_loc = get_location_names_with_ids(["Defeated Behemoth!"])
         # behemoth_boss = world.get_region("Behemoth Boss Battle")
         # behemoth_boss.add_locations(normal_behemoth_loc, MSMLocation)
-        behemoth_king_boss = world.get_region("Behemoth King Boss Battle")
-        behemoth_king_boss.add_event(
-            "Defeated Behemoth King!", "Victory!", location_type=MSMLocation,
+        world.get_region("Behemoth King Boss Battle").add_event(
+            "Defeated Behemoth King!", "Victory", location_type=MSMLocation,
             item_type=items.MSMItem)
 
     if world.options.goal_condition == GoalCondition.option_win_cups:
-        win_cup_value = world.options.cups_required.value
-        menu = world.get_region("Main Menu")
-        menu.add_event(f"Win {win_cup_value} Cups!", "Victory!", location_type=MSMLocation,
-                       item_type=items.MSMItem)
+        world.get_region("Main Menu").add_event(f"Win {world.options.cups_required.value} Cups!",
+                                                "Victory", location_type=MSMLocation, item_type=items.MSMItem)
