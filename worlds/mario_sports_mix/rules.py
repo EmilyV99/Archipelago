@@ -10,153 +10,14 @@ if TYPE_CHECKING:
 
 
 def set_all_rules(world: MSMWorld) -> None:
-    set_all_entrance_rules(world)
     set_all_location_rules(world)
     set_completion_condition(world)
-
-
-def set_all_entrance_rules(world: MSMWorld) -> None:
-    # First, we need to actually grab our entrances. Luckily, there is a helper method for this.
-    menu_to_basketball = world.get_entrance("Main Menu -> Basketball")
-    menu_to_dodgeball = world.get_entrance("Main Menu -> Dodgeball")
-    menu_to_volleyball = world.get_entrance("Main Menu -> Volleyball")
-    menu_to_hockey = world.get_entrance("Main Menu -> Hockey")
-    menu_to_sports_mix = world.get_entrance("Main Menu -> Sports Mix")
-
-    can_play_basketball = Has("Sport: Basketball")
-    can_play_dodgeball = Has("Sport: Dodgeball")
-    can_play_volleyball = Has("Sport: Volleyball")
-    can_play_hockey = Has("Sport: Hockey")
-    can_play_sports_mix = Has("Sport: Sports Mix")
-
-
-    world.set_rule(menu_to_basketball, can_play_basketball)
-    world.set_rule(menu_to_dodgeball, can_play_dodgeball)
-    world.set_rule(menu_to_volleyball, can_play_volleyball)
-    world.set_rule(menu_to_hockey, can_play_hockey)
-    world.set_rule(menu_to_sports_mix, can_play_sports_mix)
-
-
-    # Conditions can also depend on event items.
-    # button_pressed = Has("Top Left Room Button Pressed")
-    # world.set_rule(right_room_to_final_boss_room, button_pressed)
-
-    # Some entrance rules may only apply if the player enabled certain options.
-    # In our case, if the hammer option is enabled, we need to add the Hammer requirement to the Entrance from
-    # Overworld to the Top Middle Room.
-    # if world.options.hammer:
-    #     overworld_to_top_middle_room = world.get_entrance("Overworld to Top Middle Room")
-    #     can_smash_brick = Has("Hammer")
-    #     world.set_rule(overworld_to_top_middle_room, can_smash_brick)
-
-    # This style is not really recommended anymore, though.
-    # Using Rule Builder allows the core AP code to do a lot of under-the-hood optimizations.
-    # Rule Builder is quite comprehensive, and even if you have really esoteric rules,
-    # you can make custom rules by subclassing CustomRule.
-    # Since Rule Builder is preferred, we'll re-set this rule to also use "Has" from the Rule Builder.
-    # world.set_rule(overworld_to_top_left_room, Has("Key"))
 
 
 def set_all_location_rules(world: MSMWorld) -> None:
     # Get ready for a whole lotta world.get_location
 
     # ===== Sports Mix =====
-
-    sm_mushroom_1 = world.get_location("Sports Mix: Beat Mushroom Cup Round 1")
-    sm_mushroom_2 = world.get_location("Sports Mix: Beat Mushroom Cup Round 2")
-    sm_mushroom_3 = world.get_location("Sports Mix: Beat Mushroom Cup Round 3")
-    sm_flower_1 = world.get_location("Sports Mix: Beat Flower Cup Round 1")
-    sm_flower_2 = world.get_location("Sports Mix: Beat Flower Cup Round 2")
-    sm_flower_3 = world.get_location("Sports Mix: Beat Flower Cup Round 3")
-    sm_star_1 = world.get_location("Sports Mix: Beat Star Cup Round 1")
-    sm_star_2 = world.get_location("Sports Mix: Beat Star Cup Round 2")
-    sm_star_3 = world.get_location("Sports Mix: Beat Star Cup Round 3")
-
-    if "Normal" in world.options.cup_difficulty:
-        # Basketball
-        b_mushroom_n_1 = world.get_location("Basketball: Beat Normal Mushroom Cup Round 1")
-        b_mushroom_n_2 = world.get_location("Basketball: Beat Normal Mushroom Cup Round 2")
-        b_mushroom_n_3 = world.get_location("Basketball: Beat Normal Mushroom Cup Round 3")
-        b_flower_n_1 = world.get_location("Basketball: Beat Normal Flower Cup Round 1")
-        b_flower_n_2 = world.get_location("Basketball: Beat Normal Flower Cup Round 2")
-        b_flower_n_3 = world.get_location("Basketball: Beat Normal Flower Cup Round 3")
-        b_star_n_1 = world.get_location("Basketball: Beat Normal Star Cup Round 1")
-        b_star_n_2 = world.get_location("Basketball: Beat Normal Star Cup Round 2")
-        b_star_n_3 = world.get_location("Basketball: Beat Normal Star Cup Round 3")
-        # Dodgeball
-        d_mushroom_n_1 = world.get_location("Dodgeball: Beat Normal Mushroom Cup Round 1")
-        d_mushroom_n_2 = world.get_location("Dodgeball: Beat Normal Mushroom Cup Round 2")
-        d_mushroom_n_3 = world.get_location("Dodgeball: Beat Normal Mushroom Cup Round 3")
-        d_flower_n_1 = world.get_location("Dodgeball: Beat Normal Flower Cup Round 1")
-        d_flower_n_2 = world.get_location("Dodgeball: Beat Normal Flower Cup Round 2")
-        d_flower_n_3 = world.get_location("Dodgeball: Beat Normal Flower Cup Round 3")
-        d_star_n_1 = world.get_location("Dodgeball: Beat Normal Star Cup Round 1")
-        d_star_n_2 = world.get_location("Dodgeball: Beat Normal Star Cup Round 2")
-        d_star_n_3 = world.get_location("Dodgeball: Beat Normal Star Cup Round 3")
-        # Volleyball
-        v_mushroom_n_1 = world.get_location("Volleyball: Beat Normal Mushroom Cup Round 1")
-        v_mushroom_n_2 = world.get_location("Volleyball: Beat Normal Mushroom Cup Round 2")
-        v_mushroom_n_3 = world.get_location("Volleyball: Beat Normal Mushroom Cup Round 3")
-        v_flower_n_1 = world.get_location("Volleyball: Beat Normal Flower Cup Round 1")
-        v_flower_n_2 = world.get_location("Volleyball: Beat Normal Flower Cup Round 2")
-        v_flower_n_3 = world.get_location("Volleyball: Beat Normal Flower Cup Round 3")
-        v_star_n_1 = world.get_location("Volleyball: Beat Normal Star Cup Round 1")
-        v_star_n_2 = world.get_location("Volleyball: Beat Normal Star Cup Round 2")
-        v_star_n_3 = world.get_location("Volleyball: Beat Normal Star Cup Round 3")
-        # Hockey
-        h_mushroom_n_1 = world.get_location("Hockey: Beat Normal Mushroom Cup Round 1")
-        h_mushroom_n_2 = world.get_location("Hockey: Beat Normal Mushroom Cup Round 2")
-        h_mushroom_n_3 = world.get_location("Hockey: Beat Normal Mushroom Cup Round 3")
-        h_flower_n_1 = world.get_location("Hockey: Beat Normal Flower Cup Round 1")
-        h_flower_n_2 = world.get_location("Hockey: Beat Normal Flower Cup Round 2")
-        h_flower_n_3 = world.get_location("Hockey: Beat Normal Flower Cup Round 3")
-        h_star_n_1 = world.get_location("Hockey: Beat Normal Star Cup Round 1")
-        h_star_n_2 = world.get_location("Hockey: Beat Normal Star Cup Round 2")
-        h_star_n_3 = world.get_location("Hockey: Beat Normal Star Cup Round 3")
-
-    if "Hard" in world.options.cup_difficulty:
-        # Basketball
-        b_mushroom_h_1 = world.get_location("Basketball: Beat Hard Mushroom Cup Round 1")
-        b_mushroom_h_2 = world.get_location("Basketball: Beat Hard Mushroom Cup Round 2")
-        b_mushroom_h_3 = world.get_location("Basketball: Beat Hard Mushroom Cup Round 3")
-        b_flower_h_1 = world.get_location("Basketball: Beat Hard Flower Cup Round 1")
-        b_flower_h_2 = world.get_location("Basketball: Beat Hard Flower Cup Round 2")
-        b_flower_h_3 = world.get_location("Basketball: Beat Hard Flower Cup Round 3")
-        b_star_h_1 = world.get_location("Basketball: Beat Hard Star Cup Round 1")
-        b_star_h_2 = world.get_location("Basketball: Beat Hard Star Cup Round 2")
-        b_star_h_3 = world.get_location("Basketball: Beat Hard Star Cup Round 3")
-        # Dodgeball
-        d_mushroom_h_1 = world.get_location("Dodgeball: Beat Hard Mushroom Cup Round 1")
-        d_mushroom_h_2 = world.get_location("Dodgeball: Beat Hard Mushroom Cup Round 2")
-        d_mushroom_h_3 = world.get_location("Dodgeball: Beat Hard Mushroom Cup Round 3")
-        d_flower_h_1 = world.get_location("Dodgeball: Beat Hard Flower Cup Round 1")
-        d_flower_h_2 = world.get_location("Dodgeball: Beat Hard Flower Cup Round 2")
-        d_flower_h_3 = world.get_location("Dodgeball: Beat Hard Flower Cup Round 3")
-        d_star_h_1 = world.get_location("Dodgeball: Beat Hard Star Cup Round 1")
-        d_star_h_2 = world.get_location("Dodgeball: Beat Hard Star Cup Round 2")
-        d_star_h_3 = world.get_location("Dodgeball: Beat Hard Star Cup Round 3")
-        # Volleyball
-        v_mushroom_h_1 = world.get_location("Volleyball: Beat Hard Mushroom Cup Round 1")
-        v_mushroom_h_2 = world.get_location("Volleyball: Beat Hard Mushroom Cup Round 2")
-        v_mushroom_h_3 = world.get_location("Volleyball: Beat Hard Mushroom Cup Round 3")
-        v_flower_h_1 = world.get_location("Volleyball: Beat Hard Flower Cup Round 1")
-        v_flower_h_2 = world.get_location("Volleyball: Beat Hard Flower Cup Round 2")
-        v_flower_h_3 = world.get_location("Volleyball: Beat Hard Flower Cup Round 3")
-        v_star_h_1 = world.get_location("Volleyball: Beat Hard Star Cup Round 1")
-        v_star_h_2 = world.get_location("Volleyball: Beat Hard Star Cup Round 2")
-        v_star_h_3 = world.get_location("Volleyball: Beat Hard Star Cup Round 3")
-        # Hockey
-        h_mushroom_h_1 = world.get_location("Hockey: Beat Hard Mushroom Cup Round 1")
-        h_mushroom_h_2 = world.get_location("Hockey: Beat Hard Mushroom Cup Round 2")
-        h_mushroom_h_3 = world.get_location("Hockey: Beat Hard Mushroom Cup Round 3")
-        h_flower_h_1 = world.get_location("Hockey: Beat Hard Flower Cup Round 1")
-        h_flower_h_2 = world.get_location("Hockey: Beat Hard Flower Cup Round 2")
-        h_flower_h_3 = world.get_location("Hockey: Beat Hard Flower Cup Round 3")
-        h_star_h_1 = world.get_location("Hockey: Beat Hard Star Cup Round 1")
-        h_star_h_2 = world.get_location("Hockey: Beat Hard Star Cup Round 2")
-        h_star_h_3 = world.get_location("Hockey: Beat Hard Star Cup Round 3")
-
-
     has_mario_stadium = Has("Stage: Mario Stadium")
     has_koopa_troopa_beach = Has("Stage: Koopa Troopa Beach")
     has_peach_castle = Has("Stage: Peach's Castle")
@@ -175,8 +36,6 @@ def set_all_location_rules(world: MSMWorld) -> None:
 
     if "Easy" in world.options.exhibition_difficulty:
         # Basketball
-        b_mario_stadium_e = world.get_location("Basketball Ex: Beat Mario Stadium (Easy)")
-        b_koopa_troopa_beach_e = world.get_location("Basketball Ex: Beat Koopa Troopa Beach (Easy)")
         b_dk_dock_e = world.get_location("Basketball Ex: Beat DK Dock (Easy)")
         b_luigi_mansion_e = world.get_location("Basketball Ex: Beat Luigi's Mansion (Easy)")
         b_western_junction_e = world.get_location("Basketball Ex: Beat Western Junction (Easy)")
@@ -223,13 +82,10 @@ def set_all_location_rules(world: MSMWorld) -> None:
         h_star_ship_e = world.get_location("Hockey Ex: Beat Star Ship (Easy)")
         h_peach_castle_e = world.get_location("Hockey Ex: Beat Peach's Castle (Easy)")
         h_wario_factory_e = world.get_location("Hockey Ex: Beat Wario Factory (Easy)")
-        h_ghoulish_galleon_e = world.get_location("Hockey Ex: Beat Ghoulish Galleon (Easy)")
-        h_toad_park_e = world.get_location("Hockey Ex: Beat Toad Park (Easy)")
-        h_waluigi_pinball_e = world.get_location("Hockey Ex: Beat Waluigi Pinball (Easy)")
 
         # Basketball
-        world.set_rule(b_mario_stadium_e, has_mario_stadium)
-        world.set_rule(b_koopa_troopa_beach_e, has_koopa_troopa_beach)
+        world.set_rule(world.get_location("Basketball Ex: Beat Mario Stadium (Easy)"), has_mario_stadium)
+        world.set_rule(world.get_location("Basketball Ex: Beat Koopa Troopa Beach (Easy)"), has_koopa_troopa_beach)
         world.set_rule(b_dk_dock_e, has_dk_dock)
         world.set_rule(b_luigi_mansion_e, has_luigi_mansion)
         world.set_rule(b_western_junction_e, has_western_junction)
@@ -279,9 +135,9 @@ def set_all_location_rules(world: MSMWorld) -> None:
         world.set_rule(h_star_ship_e, has_star_ship)
         world.set_rule(h_peach_castle_e, has_peach_castle)
         world.set_rule(h_wario_factory_e, has_wario_factory)
-        world.set_rule(h_ghoulish_galleon_e, has_ghoulish_galleon)
-        world.set_rule(h_toad_park_e, has_toad_park)
-        world.set_rule(h_waluigi_pinball_e, has_waluigi_pinball)
+        world.set_rule(world.get_location("Hockey Ex: Beat Ghoulish Galleon (Easy)"), has_ghoulish_galleon)
+        world.set_rule(world.get_location("Hockey Ex: Beat Toad Park (Easy)"), has_toad_park)
+        world.set_rule(world.get_location("Hockey Ex: Beat Waluigi Pinball (Easy)"), has_waluigi_pinball)
 
     if "Normal" in world.options.exhibition_difficulty:
         # Basketball
