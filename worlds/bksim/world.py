@@ -1,9 +1,10 @@
 from typing import Any
 
-from BaseClasses import Region, MultiWorld
+from BaseClasses import Region, MultiWorld, ItemClassification
 from worlds.AutoWorld import World
 from . import locations, items, regions, rules, options, web_world
 from .common import *
+from .items import BKSim_Item
 
 
 class BKSimWorld(World):
@@ -20,6 +21,7 @@ class BKSimWorld(World):
     item_name_to_id = items.item_name_to_id
 
     origin_region_name = str(RID.HOME)
+    glitches_item_name: str = "out_of_logic"
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
@@ -31,6 +33,8 @@ class BKSimWorld(World):
         items.create_items(self)
 
     def create_item(self, name: str) -> items.BKSim_Item:
+        if name == self.glitches_item_name:
+            return BKSim_Item(name, ItemClassification.progression, None, self.player)
         return items.create_item(name, self.player)
 
     def set_rules(self) -> None:
